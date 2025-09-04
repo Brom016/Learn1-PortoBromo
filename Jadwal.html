@@ -1,212 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
-    <title>Jadwal Semester2</title>
-    <link rel="icon"
-        href="https://scontent.fsrg6-1.fna.fbcdn.net/v/t39.30808-6/480607014_1690440758270306_951096095442521006_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGci33g5zNXddFnSZxcy8e8gHa3rg_QLFaAdreuD9AsVuLwJiufUYsiqvHYQsKqWGkNiioE-7Jpj4U0hJ6T8OKE&_nc_ohc=hEBADvct604Q7kNvgG2fk1w&_nc_oc=Adh-cMQwgRN4UuInj59fRwyzXHXxC99bW8lm4if-fbC2DUX207o98ArNPCQ4AcEd6dE&_nc_zt=23&_nc_ht=scontent.fsrg6-1.fna&_nc_gid=ApN0hKQ9Fo9CVOwtlCCuwuj&oh=00_AYC12ook2Xd-m6EHrNrY9W9KQyhs8qth6mtcCkguKOzM_w&oe=67B8F610"
-        type="image/png">
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th,
-        td {
-            border: 1px solid black;
-            text-align: left;
-            padding: 8px;
-        }
-
-        th {
-            background-color: #0559c7;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        .subject-info {
-            background-color: #f9f9f9;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        .subject-name {
-            font-weight: bold;
-        }
-
-        .schedule {
-            font-style: bold;
-            color: blue;
-        }
-
-        #totalRow {
-            font-weight: bold;
-            background-color: #0559c738;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Jadwal</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f3f6fa;
+      padding: 30px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      background: white;
+    }
+    thead {
+      background: #2c3e50;
+      color: white;
+    }
+    th, td {
+      padding: 14px 12px;
+      text-align: left;
+    }
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+    tr:hover {
+      background: #ecf5ff;
+      transition: 0.2s;
+    }
+    .day-separator td {
+      border-top: 3px solid black;
+      background: #eaeaea;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+  </style>
 </head>
-
 <body>
-    <table id="courseTable">
-        <tr>
-            <th>No</th>
-            <th>Kode Mapel</th>
-            <th>Judul</th>
-            <th>Semester</th>
-            <th>Ruang</th>
-            <th>Jumlah</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>JTI2406<br>TEKNIK INFORMATIKA<br>3 SKS</td>
-            <td class="subject-info">
-                <div class="subject-name">STRUKTUR DATA</div>
-                Agung Riyantomo, ST., M.Kom
-            </td>
-            <td>
-                Semester Genap 2024/2025<br>
-                <span class="schedule">Senin<br>10.00 WIB</span>
-            </td>
-            <td>I.FT-3.12</td>
-            <td class="jumlah">3</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>JTI2407<br>TEKNIK INFORMATIKA<br>3 SKS</td>
-            <td class="subject-info">
-                <div class="subject-name">KOMPLEKSITAS ALGORITMA</div>
-                Akhmad Pandhu Wijaya, S.Kom., M.Kom
-            </td>
-            <td>
-                Semester Genap 2024/2025<br>
-                <span class="schedule">Senin<br>13.00 WIB</span>
-            </td>
-            <td>I.FT-3.12</td>
-            <td class="jumlah">3</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>JTI2408<br>TEKNIK INFORMATIKA<br>3 SKS</td>
-            <td class="subject-info">
-                <div class="subject-name">BASIS DATA</div>
-                Arief Hidayat, S.Kom., M.Kom
-            </td>
-            <td>
-                Semester Genap 2024/2025<br>
-                <span class="schedule">Selasa<br>10.00 WIB</span>
-            </td>
-            <td>I.FT-3.13</td>
-            <td class="jumlah">3</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>JTI2410<br>TEKNIK INFORMATIKA<br>3 SKS</td>
-            <td class="subject-info">
-                <div class="subject-name">BASIS DATA</div>
-                Sumardi, S.Kom, M.Kom
-            </td>
-            <td>
-                Semester Genap 2024/2025<br>
-                <span class="schedule">Selasa<br>10.00 WIB</span>
-            </td>
-            <td>I.FT-2.14</td>
-            <td class="jumlah">3</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>UWH105TI<br>TEKNIK INFORMATIKA<br>2 SKS</td>
-            <td class="subject-info">
-                <div class="subject-name">BAHASA INGGRIS</div>
-                Dr. Indah Hartati, ST., MT
-            </td>
-            <td>
-                Semester Genap 2024/2025<br>
-                <span class="schedule">Selasa<br>13.00 WIB</span>
-            </td>
-            <td>I.FT-3.03</td>
-            <td class="jumlah">2</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>JTI2409<br>TEKNIK INFORMATIKA<br>1 SKS</td>
-            <td class="subject-info">
-                <div class="subject-name">PRAKTIKUM BASIS DATA</div>
-                Arief Hidayat, S.Kom., M.Kom
-            </td>
-            <td>
-                Semester Genap 2024/2025<br>
-                <span class="schedule">Rabu<br>10.00 WIB</span>
-            </td>
-            <td>I.FT-2.10</td>
-            <td class="jumlah">1</td>
-        </tr>
-        <tr>
-            <td>7</td>
-            <td>JTI2411<br>TEKNIK INFORMATIKA<br>3 SKS</td>
-            <td class="subject-info">
-                <div class="subject-name">LOGIKA INFORMATIKA</div>
-                Ardian Fachreza, ST., M.Kom
-            </td>
-            <td>
-                Semester Genap 2024/2025<br>
-                <span class="schedule">Rabu<br>13.00 WIB</span>
-            </td>
-            <td>I.FT-3.13</td>
-            <td class="jumlah">3</td>
-        </tr>
-        <tr>
-            <td>8</td>
-            <td>UWH106TI<br>TEKNIK INFORMATIKA<br>2 SKS</td>
-            <td class="subject-info">
-                <div class="subject-name">KEASWAJAAN</div>
-                Akhmad Nurasikin, S.EI., MH.
-            </td>
-            <td>
-                Semester Genap 2024/2025<br>
-                <span class="schedule">Kamis<br>10.00 WIB</span>
-            </td>
-            <td>I.FT-3.03</td>
-            <td class="jumlah">2</td>
-        </tr>
-        <tr>
-            <td>9</td>
-            <td>JTI2425<br>TEKNIK INFORMATIKA<br>3 SKS</td>
-            <td class="subject-info">
-                <div class="subject-name">KECERDASAN BUATAN</div>
-                M. Subchan Mauludin, ST., MT.
-            </td>
-            <td>
-                Semester Genap 2024/2025<br>
-                <span class="schedule">Jum'at<br>10.00 WIB</span>
-            </td>
-            <td>I.FT-2.14</td>
-            <td class="jumlah">3</td>
-        </tr>
 
+  <h1>Jadwal</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Kode</th>
+        <th>Mata Kuliah</th>
+        <th>Hari</th>
+        <th>Jam</th>
+        <th>Ruangan</th>
+        <th>SKS</th>
+        <th>Dosen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Senin -->
+      <tr class="day-separator"><td colspan="7">Senin</td></tr>
+      <tr>
+        <td>JTI2412</td><td>Metode Numerik</td><td>Senin</td><td>10.00-11.50</td><td>T3.09</td><td>2</td><td>Akhmad Pandhu Wijaya</td>
+      </tr>
+      <tr>
+        <td>JTI2417</td><td>Pemrograman Web</td><td>Senin</td><td>13.00-14.50</td><td>T3.13</td><td>3</td><td>Fandy Indra Pratama</td>
+      </tr>
+      <tr>
+        <td>JTI2420</td><td>Aljabar Linear dan Matrik</td><td>Senin</td><td>15.00-16.50</td><td>T3.09</td><td>3</td><td>Akhmad Pandhu Wijaya</td>
+      </tr>
 
-        <tr id="totalRow">
-            <td colspan="5">Total</td>
-            <td id="totalJumlah">0</td>
-        </tr>
-    </table>
+      <!-- Selasa -->
+      <tr class="day-separator"><td colspan="7">Selasa</td></tr>
+      <tr>
+        <td>JTI2419</td><td>Statistik</td><td>Selasa</td><td>08.00-09.50</td><td>T3.09</td><td>2</td><td>Fandy Indra Pratama</td>
+      </tr>
+      <tr>
+        <td>JTI2415</td><td>Robotika</td><td>Selasa</td><td>10.00-11.50</td><td>T3.09</td><td>3</td><td>M. Subchan Mauludin</td>
+      </tr>
+      <tr>
+        <td>JTI2413</td><td>Sistem Operasi</td><td>Selasa</td><td>13.00-14.50</td><td>T3.08</td><td>3</td><td>Sumardi</td>
+      </tr>
+      <tr>
+        <td>JTI016</td><td>Sistem Pendukung Keputusan</td><td>Selasa</td><td>15.00-16.50</td><td>T2.14</td><td>2</td><td>Agung Riyantomo</td>
+      </tr>
 
-    <script>
-        function calculateTotal() {
-            let total = 0;
-            const jumlahElements = document.querySelectorAll('.jumlah');
-            jumlahElements.forEach(function (el) {
-                total += parseInt(el.textContent);
-            });
-            document.getElementById('totalJumlah').textContent = total;
-        }
+      <!-- Rabu -->
+      <tr class="day-separator"><td colspan="7">Rabu</td></tr>
+      <tr>
+        <td>JTI2416</td><td>Teori Bahasa dan Otomata</td><td>Rabu</td><td>10.00-11.50</td><td>T3.09</td><td>2</td><td>Nugroho Eko Budiyanto</td>
+      </tr>
+      <tr>
+        <td>JTI2414</td><td>Praktikum Sistem Operasi</td><td>Rabu</td><td>13.00-14.50</td><td>T3.15</td><td>1</td><td>Sumardi</td>
+      </tr>
+      <tr>
+        <td>JTI034</td><td>Grafika Komputer</td><td>Rabu</td><td>15.00-16.50</td><td>T3.13</td><td>2</td><td>Mustagfirin</td>
+      </tr>
 
-        // Panggil fungsi saat halaman selesai dimuat
-        window.onload = calculateTotal;
-    </script>
+      <!-- Jumat -->
+      <tr class="day-separator"><td colspan="7">Jumat</td></tr>
+      <tr>
+        <td>JTI2418</td><td>Praktikum Pemrograman Web</td><td>Jumat</td><td>10.00-11.50</td><td>T2.10</td><td>1</td><td>M. Subchan Mauludin</td>
+      </tr>
+    </tbody>
+  </table>
+
 </body>
-
 </html>
