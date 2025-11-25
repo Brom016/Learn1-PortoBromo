@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konkurensi dalam Sistem Operasi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a5f3f 0%, #2d8659 100%);
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            background: linear-gradient(135deg, #1a5f3f 0%, #2d8659 100%);
+            color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .slide.active {
+            display: flex;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 4em;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: 3em;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #a8e6cf;
+        }
+
+        p {
+            font-size: 1.5em;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        ul {
+            list-style: none;
+            font-size: 1.4em;
+            line-height: 2.2;
+            max-width: 1000px;
+        }
+
+        li {
+            margin-bottom: 25px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #a8e6cf;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .subtitle {
+            font-size: 1.8em;
+            margin-top: 20px;
+            opacity: 0.9;
+        }
+
+        .illustration {
+            margin: 30px 0;
+            font-size: 5em;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background: white;
+            color: #1a5f3f;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1.2em;
+            color: white;
+        }
+
+        .box {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.15);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .highlight {
+            color: #a8e6cf;
+            font-weight: bold;
+        }
+
+        strong {
+            color: #a8e6cf;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Cover -->
+        <div class="slide active">
+            <div class="illustration">💻</div>
+            <h1>KONKURENSI</h1>
+            <h1>dalam Sistem Operasi</h1>
+            <p class="subtitle">Memahami Bagaimana Komputer Menjalankan Banyak Tugas Sekaligus</p>
+        </div>
+
+        <!-- Slide 2: Latar Belakang -->
+        <div class="slide">
+            <h2>🌟 Mengapa Konkurensi Penting?</h2>
+            <div class="box">
+                <p style="font-size: 1.6em; margin-bottom: 30px;">Bayangkan komputer Anda saat ini...</p>
+                <ul>
+                    <li>Browser dengan banyak tab terbuka</li>
+                    <li>Aplikasi chat yang terus berjalan</li>
+                    <li>Musik yang sedang diputar</li>
+                    <li>Program yang sedang mengunduh file</li>
+                </ul>
+                <p style="margin-top: 30px; font-size: 1.5em;">Semua berjalan <strong>bersamaan</strong> tanpa saling mengganggu!</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Definisi Konkurensi -->
+        <div class="slide">
+            <h2>📖 Apa Itu Konkurensi?</h2>
+            <div class="illustration">⚡</div>
+            <div class="box">
+                <p><strong>Konkurensi</strong> adalah kemampuan sistem operasi untuk mengatur beberapa proses agar dapat beroperasi dalam rentang waktu yang sama</p>
+            </div>
+            <p style="margin-top: 40px; font-size: 1.4em;">Seperti seorang <span class="highlight">chef</span> yang memasak beberapa hidangan sekaligus dengan mengatur waktu secara bergantian</p>
+        </div>
+
+        <!-- Slide 4: Manfaat Konkurensi -->
+        <div class="slide">
+            <h2>✨ Manfaat Konkurensi</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>🚀 Kinerja Lebih Baik</h3>
+                    <p>Pekerjaan selesai lebih cepat dengan memanfaatkan banyak core processor</p>
+                </div>
+                <div class="card">
+                    <h3>⚡ Responsif</h3>
+                    <p>Aplikasi tetap lancar meski menjalankan tugas berat</p>
+                </div>
+                <div class="card">
+                    <h3>💾 Efisien</h3>
+                    <p>Penggunaan sumber daya sistem lebih optimal</p>
+                </div>
+                <div class="card">
+                    <h3>🔄 Multitasking</h3>
+                    <p>Banyak aplikasi berjalan bersamaan tanpa hambatan</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Process vs Thread -->
+        <div class="slide">
+            <h2>🔍 Process vs Thread</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>📦 Process</h3>
+                    <div class="illustration" style="font-size: 3em;">📦</div>
+                    <ul style="font-size: 1.2em;">
+                        <li>Program yang sedang berjalan</li>
+                        <li>Memiliki memori sendiri</li>
+                        <li>Terisolasi satu sama lain</li>
+                        <li>Lebih aman tapi lebih berat</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🧵 Thread</h3>
+                    <div class="illustration" style="font-size: 3em;">🧵</div>
+                    <ul style="font-size: 1.2em;">
+                        <li>Unit kecil dalam process</li>
+                        <li>Berbagi memori bersama</li>
+                        <li>Lebih ringan dan cepat</li>
+                        <li>Perlu pengaturan lebih ketat</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Masalah Konkurensi -->
+        <div class="slide">
+            <h2>⚠️ Tantangan Konkurensi</h2>
+            <p style="margin-bottom: 30px;">Ketika banyak proses berjalan bersamaan, muncul 4 masalah utama:</p>
+            <ul>
+                <li><strong>Mutual Exclusion:</strong> Hanya satu yang boleh akses data pada satu waktu</li>
+                <li><strong>Race Condition:</strong> Hasil bergantung siapa yang lebih cepat (tidak konsisten)</li>
+                <li><strong>Deadlock:</strong> Proses saling menunggu dan tidak ada yang jalan</li>
+                <li><strong>Starvation:</strong> Proses tertentu tidak pernah kebagian giliran</li>
+            </ul>
+        </div>
+
+        <!-- Slide 7: Race Condition -->
+        <div class="slide">
+            <h2>🏃 Race Condition</h2>
+            <div class="box">
+                <h3>Ilustrasi Sederhana:</h3>
+                <p style="font-size: 1.4em; margin: 30px 0;">Bayangkan 2 orang edit dokumen yang sama bersamaan tanpa koordinasi</p>
+                <div class="illustration">👥 ➡️ 📄 ➡️ ❌</div>
+                <p><strong>Akibat:</strong> Perubahan yang satu hilang, data menjadi kacau!</p>
+                <p style="margin-top: 20px; color: #a8e6cf;">Solusi: Hanya 1 yang boleh edit pada satu waktu</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Deadlock -->
+        <div class="slide">
+            <h2>🔒 Deadlock</h2>
+            <div class="box">
+                <h3>Contoh Kehidupan Nyata:</h3>
+                <p style="font-size: 1.4em; margin: 30px 0;">Dua mobil bertemu di jembatan sempit dari arah berlawanan</p>
+                <div class="illustration">🚗 ⬅️➡️ 🚙</div>
+                <p>Keduanya menunggu yang lain mundur dulu...</p>
+                <p style="margin-top: 20px;"><strong>Hasilnya:</strong> Macet total! Tidak ada yang bisa jalan</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Solusi - Semaphore -->
+        <div class="slide">
+            <h2>🛡️ Solusi: Semaphore</h2>
+            <div class="box">
+                <div class="illustration">🚦</div>
+                <h3>Seperti Lampu Lalu Lintas</h3>
+                <ul>
+                    <li><strong>Mengatur giliran</strong> siapa yang boleh lewat</li>
+                    <li>Menggunakan sistem <span class="highlight">penghitung</span></li>
+                    <li>Ada yang menunggu jika penuh</li>
+                    <li>Otomatis memberi giliran berikutnya</li>
+                </ul>
+                <p style="margin-top: 30px; font-size: 1.3em;">Operasi: <strong>wait()</strong> untuk masuk, <strong>signal()</strong> untuk keluar</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Solusi - Mutex -->
+        <div class="slide">
+            <h2>🔐 Solusi: Mutex Lock</h2>
+            <div class="box">
+                <div class="illustration">🔑</div>
+                <h3>Seperti Kunci Kamar Mandi</h3>
+                <ul>
+                    <li>Hanya ada <strong>1 kunci</strong></li>
+                    <li>Yang punya kunci bisa masuk</li>
+                    <li>Yang lain harus <span class="highlight">menunggu di luar</span></li>
+                    <li>Setelah selesai, kunci dikembalikan</li>
+                </ul>
+                <p style="margin-top: 30px; font-size: 1.3em;">Operasi: <strong>lock()</strong> untuk mengunci, <strong>unlock()</strong> untuk membuka</p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Solusi - Monitor -->
+        <div class="slide">
+            <h2>👁️ Solusi: Monitor</h2>
+            <div class="box">
+                <div class="illustration">🏢</div>
+                <h3>Sistem Otomatis yang Lebih Canggih</h3>
+                <ul>
+                    <li><strong>Penguncian otomatis</strong> - tidak perlu manual</li>
+                    <li>Lebih aman dari kesalahan programmer</li>
+                    <li>Bisa menunggu kondisi tertentu</li>
+                    <li>Membangunkan proses yang menunggu</li>
+                </ul>
+                <p style="margin-top: 30px; color: #a8e6cf;">Monitor = Semaphore + Mutex yang lebih mudah digunakan!</p>
+            </div>
+        </div>
+
+        <!-- Slide 12: Algoritma Klasik -->
+        <div class="slide">
+            <h2>🎯 Algoritma Klasik</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>🏭 Producer-Consumer</h3>
+                    <p>Pembuat dan pengguna data bekerja bersama</p>
+                </div>
+                <div class="card">
+                    <h3>📚 Readers-Writers</h3>
+                    <p>Banyak pembaca OK, tapi penulis harus sendirian</p>
+                </div>
+                <div class="card">
+                    <h3>🍝 Dining Philosophers</h3>
+                    <p>Model perebutan sumber daya terbatas</p>
+                </div>
+                <div class="card">
+                    <h3>🏦 Banker's Algorithm</h3>
+                    <p>Mencegah deadlock dengan alokasi aman</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Kesimpulan -->
+        <div class="slide">
+            <h2>📌 Kesimpulan</h2>
+            <ul>
+                <li><strong>Konkurensi</strong> membuat komputer bisa multitasking dengan efisien</li>
+                <li>Process dan thread adalah pemain utama dalam konkurensi</li>
+                <li>Ada tantangan: mutual exclusion, race condition, deadlock, starvation</li>
+                <li>Solusinya: Semaphore, Mutex, Monitor</li>
+                <li>Sistem operasi terus mengatur agar semua berjalan lancar dan aman</li>
+            </ul>
+        </div>
+
+        <!-- Slide 14: Penutup -->
+        <div class="slide">
+            <div class="illustration">✅</div>
+            <h1>Terima Kasih!</h1>
+            <p class="subtitle">Semoga presentasi ini membantu memahami konkurensi dalam sistem operasi</p>
+            <div style="margin-top: 50px; font-size: 1.3em; opacity: 0.8;">
+                <p>💡 Konkurensi = Kunci Performa Komputer Modern</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-counter">
+        <span id="currentSlide">1</span> / <span id="totalSlides">14</span>
+    </div>
+
+    <div class="navigation">
+        <button id="prevBtn" onclick="changeSlide(-1)">← Sebelumnya</button>
+        <button id="nextBtn" onclick="changeSlide(1)">Selanjutnya →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+            
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
