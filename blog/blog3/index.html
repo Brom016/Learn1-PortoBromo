@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELFOOD - Minuman Rempah Alami</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<style>/* Reset Dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #EAF5E5; /* Warna Hijau Rempah Muda yang lembut */
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header/Hero Section - Menggambarkan Latar Belakang Daun */
+.hero-section {
+    position: relative;
+    text-align: center;
+    padding-bottom: 20px;
+    /* Inspirasi warna dari gambar: Hijau cerah dan Kuning/Oranye produk */
+    background: linear-gradient(to top, #f8c983, #8cb369);
+    border-bottom-left-radius: 50% 10%;
+    border-bottom-right-radius: 50% 10%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-content h1 {
+    font-size: 3em;
+    color: #4a6d36; /* Hijau Tua */
+    margin-bottom: -10px;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px #fff;
+}
+
+.header-content h2 {
+    font-size: 1.5em;
+    color: #f7a31b; /* Oranye Kunyit */
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.main-product-image {
+    width: 90%; /* Sesuaikan ukuran gambar utama */
+    max-width: 600px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    /* Efek gambar yang sedikit menonjol (simulasi 3D/shadow) */
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    margin-top: 10px;
+}
+
+.halal-logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    color: #4a6d36;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Konten Utama */
+.content-container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+/* Konten Utama */
+.content-container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.variants-section {
+    background-color: #FFA500; /* Warna kunyit: Oranye Kunyit Agak Gelap */
+    padding: 30px 20px; /* Tambahkan padding agar tidak terlalu mepet */
+    border-radius: 10px; /* Sedikit lengkungan di sudut */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sedikit bayangan */
+    margin-bottom: 30px; /* Jarak dengan bagian selanjutnya */
+}
+
+
+.section-title {
+    text-align: center;
+    color: #4a6d36; /* Ubah warna teks judul agar kontras dengan background kunyit */
+    font-size: 2em;
+    margin: 0 0 20px; /* Sesuaikan margin karena padding sudah di section */
+    position: relative;
+}
+
+/* Anda mungkin juga ingin mengubah warna teks judul di atas background kunyit */
+.variants-section .section-title {
+    color: #fff; /* Misalnya, putih agar kontras */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Tambah shadow agar lebih jelas */
+}
+
+/* Dan juga mungkin warna teks dari setiap item varian */
+.variants-section .variant-item {
+    background-color: #ffffff; /* Biarkan putih agar mudah dibaca */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-left: 5px solid #d39f00; /* Ubah warna border agar cocok dengan kunyit */
+}
+
+.variants-section .variant-name {
+    color: #c98800; /* Warna nama varian yang lebih gelap */
+}
+
+.variants-section .variant-benefit {
+    color: #333; /* Biarkan hitam atau abu-abu gelap */
+}
+
+.variants-section .note {
+    color: #fff; /* Ubah warna catatan agar kontras */
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+/* ... Kode CSS lainnya ... */
+
+.section-title {
+    text-align: center;
+    color: #4a6d36;
+    font-size: 2em;
+    margin: 30px 0 20px;
+    position: relative;
+}
+
+/* Grid Varian */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.variant-item {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-left: 5px solid #f7a31b; /* Garis oranye untuk meniru desain list */
+}
+
+.variant-name {
+    font-size: 1.25em;
+    color: #f7a31b;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.variant-benefit {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.note {
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+    color: #888;
+    padding-bottom: 40px;
+}
+
+/* Footer CTA (Call to Action) */
+.footer-cta {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 20px;
+    border-top: 2px dashed #ccc;
+    background-color: #e6e6e0;
+}
+
+.cta-box p {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #4a6d36;
+}
+
+.social-handle {
+    font-size: 1.5em;
+    color: #555;
+    margin-top: 5px;
+}
+
+.phone-number {
+    display: block;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #f7a31b;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+/* Responsif Dasar */
+@media (max-width: 600px) {
+    .hero-section {
+        border-bottom-left-radius: 30% 5%;
+        border-bottom-right-radius: 30% 5%;
+    }
+    .header-content h1 {
+        font-size: 2.5em;
+    }
+    .header-content h2 {
+        font-size: 1.2em;
+    }
+    .footer-cta {
+        flex-direction: column;
+        gap: 20px;
+    }
+}</style>
+<body>
+    <header class="hero-section">
+        <div class="header-content">
+            <h1>ELFOOD</h1>
+            <h2>Minuman Rempah Alami</h2>
+            <div class="halal-logo">
+                <p>HALAL INDONESIA</p>
+                            </div>
+        </div>
+    </header>
+
+    <main class="content-container">
+        <section class="variants-section">
+            <h3 class="section-title">Varian dan Khasiatnya 🌿</h3>
+            
+            <div class="product-grid">
+                <div class="variant-item">
+                    <h4 class="variant-name">Kunir Asem</h4>
+                    <p class="variant-benefit">meredakan nyeri haid, menurunkan berat badan, meningkatkan daya tahan tubuh, melancarkan BAB dll</p>
+                </div>
+
+                <div class="variant-item">
+                    <h4 class="variant-name">Beras Kencur</h4>
+                    <p class="variant-benefit">menyembuhkan sariawan, menambah nafsu makan, mencegah stress, menyehatkan kulit, dll</p>
+                </div>
+                
+                <div class="variant-item">
+                    <h4 class="variant-name">Temulawak</h4>
+                    <p class="variant-benefit">meningkatkan fungsi pencernaan, pengeluaran toksin/antikanker, membantu mengatasi mual, dll.</p>
+                </div>
+                
+                <div class="variant-item">
+                    <h4 class="variant-name">Varian Ultimate</h4>
+                    <p class="variant-benefit">Mengatasi Problem pencernaan, Reproduksi (kista, Miom, Promil, Haid yang bermasalah dll)</p>
+                </div>
+                
+                <div class="variant-item">
+                    <h4 class="variant-name">Sirih</h4>
+                    <p class="variant-benefit">mengatasi keputihan, meredakan sakit gigi, mengobati luka, sebagai antiseptik alami, dll</p>
+                </div>
+                
+                <div class="variant-item">
+                    <h4 class="variant-name">Kunir & Madu</h4>
+                    <p class="variant-benefit">mengatasi asam lambung, menjaga daya ingat, menurunkan kolesterol, meredakan peradangan, meredakan batuk. dll</p>
+                </div>
+
+                <div class="variant-item">
+                    <h4 class="variant-name">Rempah Baacak</h4>
+                    <p class="variant-benefit">mengatasi virus/gegal-segal, keccapean dan badan meriang</p>
+                </div>
+
+                <div class="variant-item">
+                    <h4 class="variant-name">Kunir Kurma</h4>
+                    <p class="variant-benefit">memperbaiki sistem pencernaan, promil, dll.</p>
+                </div>
+            </div>
+            
+            <p class="note">NB : Varian bisa bertambah sesuai dengan yang di keluhkan.</p>
+        </section>
+        
+        <hr>
+        
+        <section class="footer-cta">
+    <div class="cta-box reseller-box">
+        <p>Open Reseller</p>
+        <a href="https://www.instagram.com/rempah.elfood" target="_blank" class="social-handle">
+            <span>📸</span> @rempah.elfood
+        </a>
+    </div>
+
+    <div class="cta-box contact-box">
+        <p>Hubungi Kami</p>
+        <a 
+            href="https://wa.me/6285777206416?text=Halo%20Elfood,%20saya%20tertarik%20dengan%20produk%20rempah%20alami%20Anda." 
+            class="phone-number" 
+            target="_blank"
+        >
+            085777206416
+        </a>
+    </div>
+    </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
