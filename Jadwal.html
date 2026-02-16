@@ -1,112 +1,813 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Jadwal</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f3f6fa;
-      padding: 30px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jadwal Perkuliahan - Semester Aktif</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #1e40af;
+    --primary-light: #3b82f6;
+    --secondary: #64748b;
+    --accent: #0ea5e9;
+    
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --border: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-tertiary: #94a3b8;
+    
+    --senin: #1e40af;
+    --selasa: #7c3aed;
+    --rabu: #059669;
+    --kamis: #dc2626;
+    --jumat: #ea580c;
+    
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 20px;
+}
+
+/* Header */
+.header {
+    background: var(--bg-secondary);
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 32px;
+    box-shadow: var(--shadow);
+}
+
+.header-content {
+    max-width: 800px;
+}
+
+.header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+}
+
+.header-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.header-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.header-meta span::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: var(--text-tertiary);
+    border-radius: 50%;
+}
+
+.header-meta span:first-child::before {
+    display: none;
+}
+
+/* Stats */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    transition: all 0.2s ease;
+}
+
+.stat-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.stat-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.stat-unit {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-left: 4px;
+}
+
+/* Filter Section */
+.filter-section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow);
+}
+
+.filter-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: 2px solid var(--border);
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.filter-btn:hover {
+    border-color: var(--primary-light);
+    color: var(--primary);
+}
+
+.filter-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* Schedule Grid */
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+    .schedule-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #2c3e50;
+}
+
+/* Class Card */
+.class-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.class-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--day-color);
+}
+
+.class-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+    border-color: var(--day-color);
+}
+
+.class-card[data-day="senin"] { --day-color: var(--senin); }
+.class-card[data-day="selasa"] { --day-color: var(--selasa); }
+.class-card[data-day="rabu"] { --day-color: var(--rabu); }
+.class-card[data-day="kamis"] { --day-color: var(--kamis); }
+.class-card[data-day="jumat"] { --day-color: var(--jumat); }
+
+.card-body {
+    padding: 24px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.card-day {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    background: var(--day-color);
+    color: white;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.card-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--bg-primary);
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    line-height: 1.3;
+}
+
+.card-subtitle {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.card-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+
+.detail-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detail-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.detail-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+
+
+.card-sks-value {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.card-sks-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.9;
+}
+
+/* Summary */
+.summary-card {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    border-radius: 12px;
+    padding: 40px;
+    color: white;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.summary-card h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.summary-card p {
+    font-size: 15px;
+    opacity: 0.95;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-secondary);
+}
+
+.empty-icon {
+    font-size: 48px;
+    color: var(--text-tertiary);
+    margin-bottom: 16px;
+}
+
+.empty-text {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 32px 20px;
+    color: var(--text-tertiary);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+}
+
+/* Utilities */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 16px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      background: white;
+    
+    .header {
+        padding: 24px;
     }
-    thead {
-      background: #2c3e50;
-      color: white;
+    
+    .header h1 {
+        font-size: 24px;
     }
-    th, td {
-      padding: 14px 12px;
-      text-align: left;
+    
+    .stats-container {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 12px;
     }
-    tr:nth-child(even) {
-      background: #f9f9f9;
+    
+    .stat-card {
+        padding: 20px;
     }
-    tr:hover {
-      background: #ecf5ff;
-      transition: 0.2s;
+    
+    .stat-value {
+        font-size: 28px;
     }
-    .day-separator td {
-      border-top: 3px solid black;
-      background: #eaeaea;
-      font-weight: bold;
-      color: #2c3e50;
+    
+    .filter-section {
+        padding: 16px;
     }
-  </style>
+    
+    .card-body {
+        padding: 20px;
+    }
+    
+    .card-sks {
+        width: 48px;
+        height: 48px;
+        top: 20px;
+        right: 20px;
+    }
+    
+    .card-sks-value {
+        font-size: 20px;
+    }
+    
+    .summary-card {
+        padding: 32px 24px;
+    }
+    
+    .summary-card h2 {
+        font-size: 24px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .schedule-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+</style>
 </head>
 <body>
 
-  <h1>Jadwal</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Kode</th>
-        <th>Mata Kuliah</th>
-        <th>Hari</th>
-        <th>Jam</th>
-        <th>Ruangan</th>
-        <th>SKS</th>
-        <th>Dosen</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Senin -->
-      <tr class="day-separator"><td colspan="7">Senin</td></tr>
-      <tr>
-        <td>JTI2412</td><td>Metode Numerik</td><td>Senin</td><td>10.00-11.50</td><td>T3.09</td><td>2</td><td>Akhmad Pandhu Wijaya</td>
-      </tr>
-      <tr>
-        <td>JTI2417</td><td>Pemrograman Web</td><td>Senin</td><td>13.00-14.50</td><td>T3.13</td><td>3</td><td>Fandy Indra Pratama</td>
-      </tr>
-      <tr>
-        <td>JTI2420</td><td>Aljabar Linear dan Matrik</td><td>Senin</td><td>15.00-16.50</td><td>T3.09</td><td>3</td><td>Akhmad Pandhu Wijaya</td>
-      </tr>
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <h1>Jadwal Perkuliahan</h1>
+            <div class="header-meta">
+                <span>Semester Aktif</span>
+                <span>9 Mata Kuliah</span>
+                <span>21 SKS</span>
+            </div>
+        </div>
+    </div>
 
-      <!-- Selasa -->
-      <tr class="day-separator"><td colspan="7">Selasa</td></tr>
-      <tr>
-        <td>JTI2419</td><td>Statistik</td><td>Selasa</td><td>08.00-09.50</td><td>T3.09</td><td>2</td><td>Fandy Indra Pratama</td>
-      </tr>
-      <tr>
-        <td>JTI2415</td><td>Robotika</td><td>Selasa</td><td>10.00-11.50</td><td>T3.09</td><td>3</td><td>M. Subchan Mauludin</td>
-      </tr>
-      <tr>
-        <td>JTI2413</td><td>Sistem Operasi</td><td>Selasa</td><td>13.00-14.50</td><td>T3.08</td><td>3</td><td>Sumardi</td>
-      </tr>
-      <tr>
-        <td>JTI016</td><td>Sistem Pendukung Keputusan</td><td>Selasa</td><td>15.00-16.50</td><td>T2.14</td><td>2</td><td>Agung Riyantomo</td>
-      </tr>
+    <!-- Statistics -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-label">Total SKS</div>
+            <div class="stat-value">21<span class="stat-unit">SKS</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Mata Kuliah</div>
+            <div class="stat-value">9<span class="stat-unit">Kelas</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Hari Perkuliahan</div>
+            <div class="stat-value">4<span class="stat-unit">Hari</span></div>
+        </div>
+    </div>
 
-      <!-- Rabu -->
-      <tr class="day-separator"><td colspan="7">Rabu</td></tr>
-      <tr>
-        <td>JTI2416</td><td>Teori Bahasa dan Otomata</td><td>Rabu</td><td>10.00-11.50</td><td>T3.09</td><td>2</td><td>Nugroho Eko Budiyanto</td>
-      </tr>
-      <tr>
-        <td>JTI2414</td><td>Praktikum Sistem Operasi</td><td>Rabu</td><td>13.00-14.50</td><td>T3.15</td><td>1</td><td>Sumardi</td>
-      </tr>
-      <tr>
-        <td>JTI034</td><td>Grafika Komputer</td><td>Rabu</td><td>15.00-16.50</td><td>T3.13</td><td>2</td><td>Mustagfirin</td>
-      </tr>
+    <!-- Filter -->
+    <div class="filter-section">
+        <div class="filter-label">Filter Berdasarkan Hari</div>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Semua Hari</button>
+            <button class="filter-btn" data-filter="senin">Senin</button>
+            <button class="filter-btn" data-filter="selasa">Selasa</button>
+            <button class="filter-btn" data-filter="rabu">Rabu</button>
+            <button class="filter-btn" data-filter="jumat">Jumat</button>
+        </div>
+    </div>
 
-      <!-- Jumat -->
-      <tr class="day-separator"><td colspan="7">Jumat</td></tr>
-      <tr>
-        <td>JTI2418</td><td>Praktikum Pemrograman Web</td><td>Jumat</td><td>10.00-11.50</td><td>T2.10</td><td>1</td><td>M. Subchan Mauludin</td>
-      </tr>
-    </tbody>
-  </table>
+    <!-- Schedule Grid -->
+    <div class="schedule-grid" id="scheduleGrid">
+        <!-- Senin -->
+        <div class="class-card" data-day="senin">
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="card-day">Senin</span>
+                    <span class="card-time">10:00 WIB</span>
+                </div>
+                <h3 class="card-title">Pemrograman Berorientasi Objek</h3>
+                <p class="card-subtitle">Object Oriented Programming</p>
+                <div class="card-details">
+                    <div class="detail-group">
+                        <span class="detail-label">Kode Mata Kuliah</span>
+                        <span class="detail-value">JTI2426</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Kelas</span>
+                        <span class="detail-value">A1</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Ruang</span>
+                        <span class="detail-value">T3.08</span>
+                    </div>
+                </div>
+                <div class="card-sks">
+                    <span class="card-sks-value">3</span>
+                    <span class="card-sks-label">SKS</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="class-card" data-day="senin">
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="card-day">Senin</span>
+                    <span class="card-time">13:00 WIB</span>
+                </div>
+                <h3 class="card-title">Jaringan Komputer</h3>
+                <p class="card-subtitle">Computer Network</p>
+                <div class="card-details">
+                    <div class="detail-group">
+                        <span class="detail-label">Kode Mata Kuliah</span>
+                        <span class="detail-value">JTI2423</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Kelas</span>
+                        <span class="detail-value">A1</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Ruang</span>
+                        <span class="detail-value">T2.14</span>
+                    </div>
+                </div>
+                <div class="card-sks">
+                    <span class="card-sks-value">3</span>
+                    <span class="card-sks-label">SKS</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="class-card" data-day="senin">
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="card-day">Senin</span>
+                    <span class="card-time">15:00 WIB</span>
+                </div>
+                <h3 class="card-title">Mobile Application</h3>
+                <p class="card-subtitle">Mobile Application</p>
+                <div class="card-details">
+                    <div class="detail-group">
+                        <span class="detail-label">Kode Mata Kuliah</span>
+                        <span class="detail-value">JTI2445</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Kelas</span>
+                        <span class="detail-value">A1</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Ruang</span>
+                        <span class="detail-value">T3.13</span>
+                    </div>
+                </div>
+                <div class="card-sks">
+                    <span class="card-sks-value">3</span>
+                    <span class="card-sks-label">SKS</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Selasa -->
+        <div class="class-card" data-day="selasa">
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="card-day">Selasa</span>
+                    <span class="card-time">08:00 WIB</span>
+                </div>
+                <h3 class="card-title">Praktikum Jaringan Komputer</h3>
+                <p class="card-subtitle">Computer Network Laboratory</p>
+                <div class="card-details">
+                    <div class="detail-group">
+                        <span class="detail-label">Kode Mata Kuliah</span>
+                        <span class="detail-value">JTI2424</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Kelas</span>
+                        <span class="detail-value">A2</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Ruang</span>
+                        <span class="detail-value">T3.14</span>
+                    </div>
+                </div>
+                <div class="card-sks">
+                    <span class="card-sks-value">1</span>
+                    <span class="card-sks-label">SKS</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="class-card" data-day="selasa">
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="card-day">Selasa</span>
+                    <span class="card-time">10:00 WIB</span>
+                </div>
+                <h3 class="card-title">Pengolahan Citra Digital</h3>
+                <p class="card-subtitle">Digital Image Processing</p>
+                <div class="card-details">
+                    <div class="detail-group">
+                        <span class="detail-label">Kode Mata Kuliah</span>
+                        <span class="detail-value">JTI2428</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Kelas</span>
+                        <span class="detail-value">A2</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Ruang</span>
+                        <span class="detail-value">T2.14</span>
+                    </div>
+                </div>
+                <div class="card-sks">
+                    <span class="card-sks-value">3</span>
+                    <span class="card-sks-label">SKS</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="class-card" data-day="selasa">
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="card-day">Selasa</span>
+                    <span class="card-time">13:00 WIB</span>
+                </div>
+                <h3 class="card-title">Analisis dan Perancangan Berorientasi Objek</h3>
+                <p class="card-subtitle">Object Oriented Analysis and Design</p>
+                <div class="card-details">
+                    <div class="detail-group">
+                        <span class="detail-label">Kode Mata Kuliah</span>
+                        <span class="detail-value">JTI2422</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Kelas</span>
+                        <span class="detail-value">A2</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Ruang</span>
+                        <span class="detail-value">T3.14</span>
+                    </div>
+                </div>
+                <div class="card-sks">
+                    <span class="card-sks-value">3</span>
+                    <span class="card-sks-label">SKS</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rabu -->
+        <div class="class-card" data-day="rabu">
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="card-day">Rabu</span>
+                    <span class="card-time">10:00 WIB</span>
+                </div>
+                <h3 class="card-title">Praktikum Pemrograman Berorientasi Objek</h3>
+                <p class="card-subtitle">Object Oriented Programming Laboratory</p>
+                <div class="card-details">
+                    <div class="detail-group">
+                        <span class="detail-label">Kode Mata Kuliah</span>
+                        <span class="detail-value">JTI2427</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Kelas</span>
+                        <span class="detail-value">A1</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Ruang</span>
+                        <span class="detail-value">T2.10</span>
+                    </div>
+                </div>
+                <div class="card-sks">
+                    <span class="card-sks-value">1</span>
+                    <span class="card-sks-label">SKS</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="class-card" data-day="rabu">
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="card-day">Rabu</span>
+                    <span class="card-time">13:00 WIB</span>
+                </div>
+                <h3 class="card-title">Metodologi Penelitian</h3>
+                <p class="card-subtitle">Research Methodology</p>
+                <div class="card-details">
+                    <div class="detail-group">
+                        <span class="detail-label">Kode Mata Kuliah</span>
+                        <span class="detail-value">JTI2421</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Kelas</span>
+                        <span class="detail-value">A1</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Ruang</span>
+                        <span class="detail-value">T3.09</span>
+                    </div>
+                </div>
+                <div class="card-sks">
+                    <span class="card-sks-value">3</span>
+                    <span class="card-sks-label">SKS</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Jumat -->
+        <div class="class-card" data-day="jumat">
+            <div class="card-body">
+                <div class="card-header">
+                    <span class="card-day">Jumat</span>
+                    <span class="card-time">13:00 WIB</span>
+                </div>
+                <h3 class="card-title">Praktikum Pengolahan Citra Digital</h3>
+                <p class="card-subtitle">Digital Image Processing Laboratory</p>
+                <div class="card-details">
+                    <div class="detail-group">
+                        <span class="detail-label">Kode Mata Kuliah</span>
+                        <span class="detail-value">JTI2429</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Kelas</span>
+                        <span class="detail-value">A1</span>
+                    </div>
+                    <div class="detail-group">
+                        <span class="detail-label">Ruang</span>
+                        <span class="detail-value">T3.11</span>
+                    </div>
+                </div>
+                <div class="card-sks">
+                    <span class="card-sks-value">1</span>
+                    <span class="card-sks-label">SKS</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state hidden" id="emptyState">
+        <div class="empty-icon">—</div>
+        <p class="empty-text">Tidak ada jadwal pada hari yang dipilih</p>
+    </div>
+
+</div>
+
+<script>
+// Filter Functionality
+const filterButtons = document.querySelectorAll('.filter-btn');
+const classCards = document.querySelectorAll('.class-card');
+const scheduleGrid = document.getElementById('scheduleGrid');
+const emptyState = document.getElementById('emptyState');
+
+filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const filter = this.getAttribute('data-filter');
+        
+        // Update active button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Filter cards
+        let visibleCount = 0;
+        
+        classCards.forEach(card => {
+            if (filter === 'all' || card.getAttribute('data-day') === filter) {
+                card.classList.remove('hidden');
+                visibleCount++;
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+        
+        // Toggle empty state
+        if (visibleCount === 0) {
+            scheduleGrid.classList.add('hidden');
+            emptyState.classList.remove('hidden');
+        } else {
+            scheduleGrid.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+        }
+    });
+});
+</script>
 
 </body>
 </html>
