@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Windows Update - Instagram Slides</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+  :root {
+    --blue: #3B82F6;
+    --cyan: #22D3EE;
+    --dark: #0D1117;
+    --card: #161B22;
+    --border: #21262D;
+    --text: #E6EDF3;
+    --muted: #8B949E;
+    --green: #3FB950;
+    --yellow: #F78166;
+    --red: #FF6B6B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding: 40px 20px;
+    color: var(--text);
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+
+  .slide-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .slide-label {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'Syne', sans-serif;
+  }
+
+  /* SLIDE BASE */
+  .slide {
+    width: 540px;
+    height: 540px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 36px;
+    border: 1px solid var(--border);
+  }
+
+  /* Brand watermark */
+  .brand {
+    position: absolute;
+    bottom: 20px;
+    right: 24px;
+    font-size: 11px;
+    font-family: 'Syne', sans-serif;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* Slide number badge */
+  .slide-num {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: 'Syne', sans-serif;
+    color: var(--muted);
+    padding: 4px 12px;
+  }
+
+  /* ───── SLIDE 1 – COVER ───── */
+  .slide-1 {
+    background: var(--dark);
+    background-image:
+      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(59,130,246,0.25) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(34,211,238,0.12) 0%, transparent 70%);
+    justify-content: flex-end;
+  }
+
+  .slide-1 .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(59,130,246,0.15);
+    border: 1px solid rgba(59,130,246,0.4);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 12px;
+    color: var(--blue);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    width: fit-content;
+  }
+
+  .slide-1 .big-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.05;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+
+  .slide-1 .big-title span {
+    color: var(--cyan);
+  }
+
+  .slide-1 .subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 380px;
+  }
+
+  /* big icon */
+  .slide-1 .win-icon {
+    position: absolute;
+    top: 36px;
+    right: 36px;
+    font-size: 90px;
+    opacity: 0.08;
+    line-height: 1;
+  }
+
+  /* ───── SLIDE 2 – KENAPA ───── */
+  .slide-2 {
+    background: var(--card);
+    background-image:
+      radial-gradient(ellipse 40% 40% at 5% 0%, rgba(34,211,238,0.1) 0%, transparent 60%);
+  }
+
+  .slide-header {
+    margin-bottom: 6px;
+  }
+
+  .section-tag {
+    font-size: 11px;
+    font-family: 'Syne', sans-serif;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .slide-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  .reason-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .reason-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+
+  .reason-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .reason-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+
+  .reason-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ───── SLIDE 3 – CARA 1 ───── */
+  .slide-3 {
+    background: var(--dark);
+    background-image:
+      radial-gradient(ellipse 50% 60% at 100% 50%, rgba(59,130,246,0.15) 0%, transparent 70%);
+  }
+
+  .method-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(59,130,246,0.15);
+    border: 1px solid rgba(59,130,246,0.3);
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-family: 'Syne', sans-serif;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    width: fit-content;
+  }
+
+  .steps-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 11px 14px;
+  }
+
+  .step-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    background: var(--blue);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .step-text strong {
+    color: var(--cyan);
+    font-weight: 600;
+  }
+
+  .tip-box {
+    background: rgba(34,211,238,0.08);
+    border: 1px solid rgba(34,211,238,0.2);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--cyan);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ───── SLIDE 4 – CARA LANJUTAN ───── */
+  .slide-4 {
+    background: var(--card);
+    background-image:
+      radial-gradient(ellipse 40% 50% at 0% 100%, rgba(255,107,107,0.1) 0%, transparent 60%);
+  }
+
+  .method-badge.red {
+    background: rgba(255,107,107,0.12);
+    border-color: rgba(255,107,107,0.3);
+    color: var(--red);
+  }
+
+  .method-badge.purple {
+    background: rgba(167,139,250,0.12);
+    border-color: rgba(167,139,250,0.3);
+    color: #a78bfa;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    flex: 1;
+    align-content: center;
+  }
+
+  .method-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 14px;
+  }
+
+  .method-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .method-step {
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.7;
+    display: flex;
+    gap: 6px;
+    align-items: baseline;
+  }
+
+  .method-step-num {
+    color: var(--blue);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .method-step strong {
+    color: #e6edf3;
+    font-weight: 600;
+  }
+
+  .note-box {
+    background: rgba(247,129,102,0.08);
+    border: 1px solid rgba(247,129,102,0.2);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #F78166;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ───── SLIDE 5 – TIPS & PENUTUP ───── */
+  .slide-5 {
+    background: var(--dark);
+    background-image:
+      radial-gradient(ellipse 60% 50% at 50% 100%, rgba(59,246,142,0.1) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 100% 0%, rgba(59,130,246,0.1) 0%, transparent 60%);
+  }
+
+  .tips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .tip-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 12px 15px;
+  }
+
+  .tip-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .tip-text {
+    font-size: 12.5px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .tip-text strong {
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .cta-box {
+    background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(34,211,238,0.1));
+    border: 1px solid rgba(59,130,246,0.3);
+    border-radius: 12px;
+    padding: 14px 18px;
+    text-align: center;
+  }
+
+  .cta-box p {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .cta-box span {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ─── PAGE TITLE ─── */
+  .page-title {
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .page-title h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .page-title p {
+    font-size: 13px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="page-title">
+  <h1>Instagram Slides</h1>
+  <h2>Cara Pause/Matikan Windows Update</h2>
+  <p>5 Slide · Windows 10 & 11</p>
+</div>
+
+<!-- ─────────── SLIDE 1 ─────────── -->
+<div class="slide-wrapper">
+  <div class="slide-label">Slide 1 · Cover</div>
+  <div class="slide slide-1">
+    <div class="win-icon">⊞</div>
+    <div class="slide-num">1 / 5</div>
+
+    <div style="flex:1;"></div>
+    <div>
+      <div class="tag">💡 Tips Windows</div>
+      <div class="big-title">Cara <span>Pause</span><br>Windows<br>Update</div>
+      <div class="subtitle">Laptop lemot & restart tiba-tiba? Ini cara mengatasinya di Windows 10 & 11 🔧</div>
+    </div>
+    <div class="brand">@hmjti_uwh</div>
+  </div>
+</div>
+
+<!-- ─────────── SLIDE 2 ─────────── -->
+<div class="slide-wrapper">
+  <div class="slide-label">Slide 2 · Kenapa Perlu Dipause?</div>
+  <div class="slide slide-2">
+    <div class="slide-num">2 / 5</div>
+
+    <div class="slide-header">
+      <div class="section-tag">Masalahnya</div>
+      <div class="slide-title">Kenapa Windows<br>Update Sering<br>Bikin Pusing? 😤</div>
+    </div>
+
+    <div class="reason-list">
+      <div class="reason-item">
+        <div class="reason-icon">🐢</div>
+        <div>
+          <div class="reason-title">Laptop Jadi Lambat</div>
+          <div class="reason-desc">Update berjalan di background, memakan CPU, RAM & bandwidth internet saat kamu bekerja.</div>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="reason-icon">📶</div>
+        <div>
+          <div class="reason-title">Kuota Internet Terkuras</div>
+          <div class="reason-desc">Update bisa ratusan MB hingga beberapa GB — bahaya kalau pakai hotspot!</div>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="reason-icon">⚠️</div>
+        <div>
+          <div class="reason-title">Restart Otomatis Tiba-tiba</div>
+          <div class="reason-desc">Windows bisa restart sendiri setelah update selesai — tugas yang belum disimpan bisa hilang.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brand">@hmjti_uwh</div>
+  </div>
+</div>
+
+<!-- ─────────── SLIDE 3 ─────────── -->
+<div class="slide-wrapper">
+  <div class="slide-label">Slide 3 · Cara 1 (Termudah)</div>
+  <div class="slide slide-3">
+    <div class="slide-num">3 / 5</div>
+
+    <div>
+      <div class="method-badge">⚡ Cara Termudah</div>
+      <div class="slide-title" style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;line-height:1.2;">Pause via Settings<br><span style="color:var(--cyan)">✅ Aman & Cepat</span></div>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Klik <strong>Start Menu</strong> → buka <strong>Settings</strong></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Pilih <strong>Windows Update</strong></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Klik <strong>Pause updates</strong></div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">Pilih durasi pause — hingga <strong>beberapa minggu</strong></div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <span>💡</span>
+      <span>Cocok untuk menunda update saat kamu sedang deadline tugas atau kerja!</span>
+    </div>
+
+    <div class="brand">@hmjti_uwh</div>
+  </div>
+</div>
+
+<!-- ─────────── SLIDE 4 ─────────── -->
+<div class="slide-wrapper">
+  <div class="slide-label">Slide 4 · Cara Lanjutan</div>
+  <div class="slide slide-4">
+    <div class="slide-num">4 / 5</div>
+
+    <div style="margin-bottom:10px;">
+      <div class="section-tag">Cara Lanjutan</div>
+      <div class="slide-title" style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;">Matikan Lewat<br>Services & Registry</div>
+    </div>
+
+    <div class="two-col">
+      <div class="method-card">
+        <div class="method-card-title">🛠️ Via Services</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div class="method-step"><span class="method-step-num">1.</span><span>Tekan <strong>Win+R</strong></span></div>
+          <div class="method-step"><span class="method-step-num">2.</span><span>Ketik <strong>services.msc</strong></span></div>
+          <div class="method-step"><span class="method-step-num">3.</span><span>Cari <strong>Windows Update</strong></span></div>
+          <div class="method-step"><span class="method-step-num">4.</span><span>Set Startup Type → <strong>Disabled</strong></span></div>
+          <div class="method-step"><span class="method-step-num">5.</span><span>Klik <strong>Stop → Apply</strong></span></div>
+        </div>
+      </div>
+      <div class="method-card">
+        <div class="method-card-title">🔑 Via Registry</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <div class="method-step"><span class="method-step-num">1.</span><span>Tekan <strong>Win+R</strong></span></div>
+          <div class="method-step"><span class="method-step-num">2.</span><span>Ketik <strong>regedit</strong></span></div>
+          <div class="method-step"><span class="method-step-num">3.</span><span>Masuk ke folder <strong>WindowsUpdate\AU</strong></span></div>
+          <div class="method-step"><span class="method-step-num">4.</span><span>Buat <strong>DWORD</strong> NoAutoUpdate</span></div>
+          <div class="method-step"><span class="method-step-num">5.</span><span>Set value = <strong>1</strong>, lalu Restart</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <span>⚠️</span>
+      <span>Registry untuk pengguna advance — hati-hati saat mengeditnya!</span>
+    </div>
+
+    <div class="brand">@hmjti_uwh</div>
+  </div>
+</div>
+
+<!-- ─────────── SLIDE 5 ─────────── -->
+<div class="slide-wrapper">
+  <div class="slide-label">Slide 5 · Tips & Penutup</div>
+  <div class="slide slide-5">
+    <div class="slide-num">5 / 5</div>
+
+    <div>
+      <div class="section-tag">Ingat Ini!</div>
+      <div class="slide-title" style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;line-height:1.2;">Jangan Dimatikan<br>Selamanya! 🔒</div>
+    </div>
+
+    <div class="tips-list">
+      <div class="tip-item">
+        <div class="tip-icon">🛡️</div>
+        <div class="tip-text">
+          <strong>Keamanan Terancam</strong>
+          Update membawa patch penting untuk melindungi dari virus & malware.
+        </div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-icon">🕐</div>
+        <div class="tip-text">
+          <strong>Gunakan Fitur Active Hours</strong>
+          Atur jam aktif agar Windows tidak restart di saat kamu sedang bekerja.
+        </div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-icon">🌙</div>
+        <div class="tip-text">
+          <strong>Update Saat Tidak Dipakai</strong>
+          Jalankan update di malam hari atau saat laptop idle — aman dan tidak ganggu.
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <p>💙 Save & share ke teman yang sering kena restart tiba-tiba!</p>
+      <span>Follow @hmjti_uwh untuk tips teknologi lainnya</span>
+    </div>
+
+    <div class="brand">@hmjti_uwh</div>
+  </div>
+</div>
+
+</body>
+</html>
