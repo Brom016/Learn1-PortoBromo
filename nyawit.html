@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PT. NYAWIT NIH ORANG</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest:     #1B3A2D;
+  --pine:       #2D5E46;
+  --leaf:       #4A8C65;
+  --sage:       #8BBF9F;
+  --mint:       #D6EDE3;
+  --cream:      #F5F0E8;
+  --ivory:      #FDFBF7;
+  --amber:      #C08B2C;
+  --amber-lt:   #E8B455;
+  --amber-pale: #FBF0D6;
+  --terracotta: #9B4522;
+  --terra-lt:   #C05A2B;
+  --terra-pale: #F9EDE6;
+  --bark:       #3D2B1F;
+  --bark-lt:    #6B5146;
+  --smoke:      #EBE6DD;
+  --white:      #FFFFFF;
+
+  --r-sm: 8px; --r-md: 14px; --r-lg: 22px; --r-xl: 32px;
+  --sh-sm: 0 1px 4px rgba(27,58,45,.06),0 1px 2px rgba(27,58,45,.04);
+  --sh-md: 0 4px 20px rgba(27,58,45,.09),0 1px 4px rgba(27,58,45,.04);
+  --sh-lg: 0 12px 40px rgba(27,58,45,.13),0 4px 12px rgba(27,58,45,.06);
+  --sh-xl: 0 24px 60px rgba(27,58,45,.18);
+  --f-d: 'Playfair Display', Georgia, serif;
+  --f-b: 'Plus Jakarta Sans', sans-serif;
+  --inner: 1160px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-b);background:var(--ivory);color:var(--bark);max-width:1440px;margin:0 auto;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:var(--f-b);border:none;outline:none}
+input,textarea{font-family:var(--f-b)}
+
+.page{display:none;min-height:100vh;animation:fadeUp .42s cubic-bezier(.16,1,.3,1)}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Type ── */
+.display{font-family:var(--f-d);font-size:clamp(42px,5.5vw,76px);font-weight:700;line-height:1.06;letter-spacing:-.02em;color:var(--forest)}
+.display.light{color:var(--ivory)}
+.h2{font-family:var(--f-d);font-size:clamp(27px,3vw,43px);font-weight:600;line-height:1.2;letter-spacing:-.015em;color:var(--forest)}
+.h3{font-family:var(--f-d);font-size:clamp(18px,2vw,24px);font-weight:600;line-height:1.25;color:var(--forest)}
+.body-lg{font-size:17px;line-height:1.78;color:var(--bark-lt);font-weight:400}
+.body-md{font-size:14.5px;line-height:1.7;color:var(--bark-lt)}
+.label{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;padding:5px 14px;border-radius:99px;margin-bottom:18px}
+.label-g{background:var(--mint);color:var(--pine)}
+.label-a{background:var(--amber-pale);color:var(--amber)}
+.label-t{background:var(--terra-pale);color:var(--terracotta)}
+
+/* ── Buttons ── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:var(--r-sm);font-size:14.5px;font-weight:600;letter-spacing:.01em;transition:all .22s cubic-bezier(.16,1,.3,1);cursor:pointer;border:none}
+.btn-f{background:var(--forest);color:var(--ivory);box-shadow:0 4px 14px rgba(27,58,45,.28)}
+.btn-f:hover{background:var(--pine);box-shadow:0 8px 24px rgba(27,58,45,.38);transform:translateY(-2px)}
+.btn-a{background:var(--amber);color:var(--ivory);box-shadow:0 4px 14px rgba(192,139,44,.3)}
+.btn-a:hover{background:#A87826;box-shadow:0 8px 24px rgba(192,139,44,.42);transform:translateY(-2px)}
+.btn-t{background:var(--terracotta);color:var(--ivory);box-shadow:0 4px 14px rgba(155,69,34,.28)}
+.btn-t:hover{background:var(--terra-lt);box-shadow:0 8px 24px rgba(155,69,34,.38);transform:translateY(-2px)}
+.btn-ol{background:transparent;color:var(--forest);border:1.5px solid var(--forest)}
+.btn-ol:hover{background:var(--mint);transform:translateY(-2px)}
+
+/* ── Placeholders ── */
+.ph{display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.ph span{position:relative;z-index:2;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.6)}
+.ph::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(60deg,rgba(255,255,255,.04) 0,rgba(255,255,255,.04) 1px,transparent 1px,transparent 18px),repeating-linear-gradient(-60deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 18px)}
+.ph::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 40%,rgba(255,255,255,.08) 0%,transparent 60%)}
+.ph-forest{background:linear-gradient(135deg,#0F2318 0%,#1B3A2D 45%,#2D5E46 100%)}
+.ph-palm{background:linear-gradient(135deg,#1A3A1A 0%,#2D5E20 45%,#4A8A30 100%)}
+.ph-amber{background:linear-gradient(135deg,#5C3D0A 0%,#9B6B18 45%,#C08B2C 100%)}
+.ph-steel{background:linear-gradient(135deg,#1C2B35 0%,#2E4555 45%,#3D6070 100%)}
+.ph-earth{background:linear-gradient(135deg,#2E1A0E 0%,#5C3A1E 45%,#8B5E30 100%)}
+
+/* ── Navbar ── */
+.navbar{position:sticky;top:0;z-index:200;background:rgba(253,251,247,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(27,58,45,.08)}
+.nav-inner{max-width:var(--inner);margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo-mark{width:36px;height:36px;border-radius:10px;background:var(--forest);display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:20px;height:20px;fill:var(--amber-lt)}
+.logo-name{font-family:var(--f-d);font-size:15px;font-weight:700;color:var(--forest);line-height:1.2}
+.logo-sub{font-size:10px;font-weight:500;color:var(--sage);letter-spacing:.06em;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-link{font-size:14px;font-weight:500;color:var(--bark-lt);padding:8px 16px;border-radius:var(--r-sm);cursor:pointer;transition:all .18s ease}
+.nav-link:hover{background:var(--mint);color:var(--forest)}
+.nav-link.active{background:var(--mint);color:var(--forest);font-weight:600}
+.nav-logout{margin-left:10px;font-size:13px;font-weight:500;color:var(--bark-lt);padding:9px 18px;border-radius:var(--r-sm);border:1px solid var(--smoke);background:transparent;cursor:pointer;transition:all .18s ease}
+.nav-logout:hover{background:var(--smoke)}
+
+/* ── Section ── */
+.section{padding:clamp(64px,7vw,110px) 40px}
+.inner{max-width:var(--inner);margin:0 auto}
+
+/* ── Card ── */
+.card{background:var(--ivory);border:1px solid rgba(27,58,45,.08);border-radius:var(--r-lg);box-shadow:var(--sh-sm);overflow:hidden;transition:box-shadow .28s,transform .28s}
+.card:hover{box-shadow:var(--sh-lg);transform:translateY(-5px)}
+
+/* ── Footer ── */
+.footer{background:var(--forest);color:rgba(245,240,232,.65)}
+.footer-top{max-width:var(--inner);margin:0 auto;padding:64px 40px 48px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:56px}
+.ft-logo-name{font-family:var(--f-d);font-size:17px;font-weight:700;color:var(--ivory);line-height:1.2}
+.ft-logo-sub{font-size:10px;font-weight:500;color:var(--sage);letter-spacing:.06em;text-transform:uppercase}
+.ft-about{font-size:13.5px;line-height:1.75;margin-top:14px;max-width:280px}
+.ft-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--sage);margin-bottom:18px}
+.ft-link{font-size:14px;margin-bottom:10px;color:rgba(245,240,232,.65);cursor:pointer;transition:color .15s}
+.ft-link:hover{color:var(--ivory)}
+.footer-bottom{border-top:1px solid rgba(245,240,232,.1);max-width:var(--inner);margin:0 auto;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:rgba(245,240,232,.35)}
+
+/* ════════════════════════
+   FRAME 1 — LOGIN
+════════════════════════ */
+#login{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.l-left{background:var(--forest);padding:60px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.l-left::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at -10% 110%,rgba(192,139,44,.2) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 110% -10%,rgba(74,140,101,.15) 0%,transparent 60%)}
+.l-left::after{content:'';position:absolute;bottom:-80px;right:-80px;width:400px;height:400px;border-radius:50%;border:60px solid rgba(255,255,255,.03)}
+.l-left-content{position:relative;z-index:1}
+.l-brand{display:flex;align-items:center;gap:12px;margin-bottom:60px}
+.l-brand-mark{width:44px;height:44px;border-radius:12px;background:var(--amber);display:flex;align-items:center;justify-content:center}
+.l-brand-mark svg{width:24px;height:24px;fill:var(--ivory)}
+.l-brand-name{font-family:var(--f-d);font-size:14px;font-weight:700;color:var(--ivory);line-height:1.3}
+.l-brand-sub{font-size:10.5px;color:var(--sage);font-weight:500;letter-spacing:.05em}
+.l-headline{font-family:var(--f-d);font-size:clamp(32px,3.5vw,50px);font-weight:700;line-height:1.12;color:var(--ivory);letter-spacing:-.02em;margin-bottom:22px}
+.l-headline em{color:var(--amber-lt);font-style:normal}
+.l-desc{font-size:15px;line-height:1.72;color:rgba(245,240,232,.58);max-width:360px}
+.l-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:38px}
+.l-badge{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);padding:7px 15px;border-radius:99px;font-size:12px;color:rgba(245,240,232,.7);font-weight:500}
+.l-badge-dot{width:5px;height:5px;background:var(--amber-lt);border-radius:50%}
+.l-footer-text{position:relative;z-index:1;font-size:12px;color:rgba(245,240,232,.28)}
+
+.l-right{background:var(--cream);display:flex;align-items:center;justify-content:center;padding:60px 40px}
+.l-form{width:100%;max-width:420px}
+.l-form-title{font-family:var(--f-d);font-size:29px;font-weight:700;color:var(--forest);margin-bottom:8px;letter-spacing:-.02em}
+.l-form-sub{font-size:14.5px;color:var(--bark-lt);margin-bottom:38px}
+.fg{margin-bottom:20px}
+.fl{display:block;font-size:12.5px;font-weight:600;color:var(--forest);margin-bottom:8px;letter-spacing:.02em}
+.fi{width:100%;padding:13px 16px;background:var(--ivory);border:1.5px solid rgba(27,58,45,.15);border-radius:var(--r-sm);font-size:15px;color:var(--bark);transition:all .2s;outline:none}
+.fi:focus{background:var(--white);border-color:var(--leaf);box-shadow:0 0 0 3px rgba(74,140,101,.12)}
+.fi::placeholder{color:var(--sage)}
+.l-submit{width:100%;padding:15px;background:var(--forest);color:var(--ivory);border:none;border-radius:var(--r-sm);font-size:15px;font-weight:700;font-family:var(--f-b);cursor:pointer;margin-top:4px;box-shadow:0 6px 20px rgba(27,58,45,.28);transition:all .22s ease}
+.l-submit:hover{background:var(--pine);transform:translateY(-2px);box-shadow:0 10px 28px rgba(27,58,45,.38)}
+.divider-row{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--sage);font-size:12.5px}
+.divider-row::before,.divider-row::after{content:'';flex:1;height:1px;background:rgba(27,58,45,.1)}
+.l-guest{display:block;text-align:center;font-size:14px;font-weight:500;color:var(--bark-lt);padding:12px;border-radius:var(--r-sm);cursor:pointer;transition:all .2s;border:1.5px solid rgba(27,58,45,.12)}
+.l-guest:hover{background:var(--mint);color:var(--forest);border-color:var(--sage)}
+.l-notif{display:none;padding:12px 16px;border-radius:var(--r-sm);font-size:13.5px;font-weight:600;margin-bottom:20px;text-align:center;animation:fadeUp .3s ease}
+.l-notif.show{display:block}
+.notif-ok{background:var(--mint);border:1px solid var(--sage);color:var(--pine)}
+.notif-err{background:var(--terra-pale);border:1px solid #D4936A;color:var(--terracotta)}
+
+/* ════════════════════════
+   FRAME 2 — HOME
+════════════════════════ */
+.hero{background:var(--cream);padding:clamp(72px,7vw,100px) 40px}
+.hero-inner{max-width:var(--inner);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.hero-ey{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.ey-line{width:32px;height:2px;background:var(--amber);border-radius:99px}
+.ey-text{font-size:12px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.12em}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px}
+.hero-img{height:480px;border-radius:var(--r-xl);box-shadow:var(--sh-xl)}
+
+.strip{background:var(--forest);padding:32px 40px;overflow:hidden;position:relative}
+.strip::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 100px)}
+.strip-inner{max-width:var(--inner);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);position:relative}
+.strip-stat{text-align:center;padding:8px 0}
+.strip-stat+.strip-stat{border-left:1px solid rgba(255,255,255,.1)}
+.strip-num{font-family:var(--f-d);font-size:38px;font-weight:700;color:var(--amber-lt);line-height:1;letter-spacing:-.02em}
+.strip-lbl{font-size:12.5px;color:rgba(245,240,232,.55);margin-top:5px;font-weight:500}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.about-img{height:400px;border-radius:var(--r-xl);box-shadow:var(--sh-lg)}
+
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:50px}
+.prod-img{height:210px}
+.prod-body{padding:26px}
+.prod-tag{display:inline-block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;background:var(--mint);color:var(--pine);padding:4px 11px;border-radius:99px;margin-bottom:12px}
+.prod-title{font-family:var(--f-d);font-size:19px;font-weight:600;margin-bottom:10px;color:var(--forest)}
+.prod-desc{font-size:13.5px;color:var(--bark-lt);line-height:1.65}
+
+.cta-band{position:relative;overflow:hidden;background:var(--amber);padding:clamp(64px,6vw,88px) 40px}
+.cta-band::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#A87826 0%,var(--amber) 50%,#D4A843 100%)}
+.cta-band::after{content:'';position:absolute;right:-60px;top:50%;transform:translateY(-50%);width:500px;height:500px;border-radius:50%;border:80px solid rgba(255,255,255,.06)}
+.cta-in{max-width:var(--inner);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;z-index:1}
+.cta-text .h2{color:var(--forest);margin-bottom:10px}
+.cta-text p{font-size:16px;color:rgba(27,58,45,.7);max-width:520px;line-height:1.65}
+.cta-btn{background:var(--forest);color:var(--ivory);box-shadow:0 8px 24px rgba(27,58,45,.35);white-space:nowrap;flex-shrink:0;padding:15px 34px;border-radius:var(--r-sm);font-size:15px;font-weight:700;cursor:pointer;transition:all .22s ease;border:none;font-family:var(--f-b)}
+.cta-btn:hover{background:var(--pine);transform:translateY(-2px);box-shadow:0 12px 32px rgba(27,58,45,.45)}
+
+/* ════════════════════════
+   FRAME 3 — PROFILE
+════════════════════════ */
+.page-hero{background:var(--forest);padding:72px 40px;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 100% 50%,rgba(192,139,44,.12) 0%,transparent 60%)}
+.page-hero-inner{max-width:var(--inner);margin:0 auto;position:relative;z-index:1}
+.breadcrumb{font-size:12.5px;color:rgba(245,240,232,.45);margin-bottom:18px;font-weight:500}
+.breadcrumb span{color:rgba(245,240,232,.8)}
+
+.vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:50px}
+.vm-card{background:var(--ivory);border:1px solid rgba(27,58,45,.08);border-radius:var(--r-lg);padding:38px;box-shadow:var(--sh-sm);position:relative;overflow:hidden}
+.vm-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.vm-card.visi::before{background:linear-gradient(90deg,var(--forest),var(--leaf))}
+.vm-card.misi::before{background:linear-gradient(90deg,var(--amber),var(--amber-lt))}
+.vm-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.vm-icon.g{background:var(--mint)}
+.vm-icon.a{background:var(--amber-pale)}
+.vm-title{font-family:var(--f-d);font-size:22px;font-weight:600;color:var(--forest);margin-bottom:14px}
+.vm-list{list-style:none}
+.vm-list li{display:flex;gap:12px;font-size:14px;color:var(--bark-lt);line-height:1.65;padding:9px 0;border-bottom:1px solid rgba(27,58,45,.05)}
+.vm-list li:last-child{border-bottom:none}
+.vm-dot{width:7px;height:7px;border-radius:50%;margin-top:7px;flex-shrink:0}
+.vm-dot.g{background:var(--leaf)}
+.vm-dot.a{background:var(--amber)}
+
+.prod-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:50px}
+
+/* ════════════════════════
+   FRAME 4 — CONTACT
+════════════════════════ */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:52px}
+.form-wrap{background:var(--ivory);border:1px solid rgba(27,58,45,.08);border-radius:var(--r-xl);padding:44px;box-shadow:var(--sh-md)}
+.info-cards{display:flex;flex-direction:column;gap:16px}
+.info-card{background:var(--ivory);border:1px solid rgba(27,58,45,.08);border-radius:var(--r-md);padding:24px 28px;display:flex;gap:18px;align-items:flex-start;box-shadow:var(--sh-sm);transition:box-shadow .22s,transform .22s}
+.info-card:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}
+.info-icon{width:44px;height:44px;border-radius:var(--r-sm);background:var(--mint);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.info-icon svg{width:20px;height:20px}
+.info-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--sage);margin-bottom:5px}
+.info-val{font-size:14.5px;color:var(--bark);line-height:1.6;font-weight:500}
+.info-sub{font-size:12.5px;color:var(--bark-lt);margin-top:2px}
+.textarea{resize:vertical;min-height:150px}
+.ok-box{display:none;background:var(--mint);border:1.5px solid var(--sage);border-radius:var(--r-sm);padding:16px 22px;color:var(--pine);font-size:14.5px;font-weight:600;margin-top:18px;text-align:center;animation:fadeUp .35s ease}
+.ok-box.show{display:block}
+.er-box{display:none;background:var(--terra-pale);border:1.5px solid #D4936A;border-radius:var(--r-sm);padding:16px 22px;color:var(--terracotta);font-size:14.5px;font-weight:600;margin-top:18px;text-align:center;animation:fadeUp .35s ease}
+.er-box.show{display:block}
+.map-ph{border-radius:var(--r-lg);overflow:hidden;height:170px;background:linear-gradient(135deg,#C8D8CF 0%,#9EB9A8 100%);position:relative;display:flex;align-items:center;justify-content:center;color:var(--pine);font-size:13px;font-weight:600}
+.map-ph::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(27,58,45,.06) 0,rgba(27,58,45,.06) 1px,transparent 1px,transparent 40px),repeating-linear-gradient(90deg,rgba(27,58,45,.06) 0,rgba(27,58,45,.06) 1px,transparent 1px,transparent 40px)}
+.map-pulse{position:absolute;width:14px;height:14px;background:var(--terracotta);border-radius:50%;box-shadow:0 0 0 4px rgba(155,69,34,.2);animation:pulse 2.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(155,69,34,.2)}50%{box-shadow:0 0 0 14px rgba(155,69,34,.04)}}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     FRAME 1 — LOGIN
+════════════════════════════════ -->
+<div id="login" class="page active">
+  <div class="l-left">
+    <div class="l-left-content">
+      <div class="l-brand">
+        <div class="l-brand-mark">
+          <svg viewBox="0 0 24 24"><path d="M12 2s-5 3.5-5 9c0 2.8 2.2 5 5 5s5-2.2 5-5c0-5.5-5-9-5-9z"/><path d="M5.5 8C3.3 9.5 3 13 3 13s3.5 1 6-1c1.5-1 2.3-2.8 1.5-4.5C9.5 6.5 7.5 7 5.5 8z"/><path d="M18.5 8c2.2 1.5 2.5 5 2.5 5s-3.5 1-6-1c-1.5-1-2.3-2.8-1.5-4.5C14.5 6.5 16.5 7 18.5 8z"/><rect x="11" y="15" width="2" height="8" rx="1"/><rect x="8" y="20" width="8" height="2.5" rx="1.25"/></svg>
+        </div>
+        <div>
+          <div class="l-brand-name">PT. NYAWIT NIH ORANG</div>
+          <div class="l-brand-sub">Portal Perusahaan</div>
+        </div>
+      </div>
+      <h1 class="l-headline">Kelapa Sawit<br>Berkualitas <em>Terbaik</em></h1>
+      <p class="l-desc">Menghadirkan produk perkebunan kelapa sawit unggulan dengan standar internasional dan komitmen penuh terhadap keberlanjutan lingkungan.</p>
+      <div class="l-badges">
+        <div class="l-badge"><div class="l-badge-dot"></div>Bersertifikat RSPO</div>
+        <div class="l-badge"><div class="l-badge-dot"></div>18+ Tahun</div>
+        <div class="l-badge"><div class="l-badge-dot"></div>12.000 Ha Kebun</div>
+      </div>
+    </div>
+    <div class="l-footer-text">&copy; 2025 PT. Nyawit Nih Orang. All rights reserved.</div>
+  </div>
+
+  <div class="l-right">
+    <div class="l-form">
+      <div class="l-notif" id="loginNotif"></div>
+      <h2 class="l-form-title">Masuk ke Sistem</h2>
+      <p class="l-form-sub">Silakan masuk untuk mengakses portal perusahaan.</p>
+      <div class="fg">
+        <label class="fl">Alamat Email</label>
+        <input class="fi" type="email" id="loginEmail" placeholder="nama@perusahaan.com">
+      </div>
+      <div class="fg" style="margin-bottom:28px">
+        <label class="fl">Kata Sandi</label>
+        <input class="fi" type="password" id="loginPassword" placeholder="Masukkan kata sandi">
+      </div>
+      <button class="l-submit" onclick="handleLogin()">Masuk ke Sistem</button>
+      <div class="divider-row">atau</div>
+      <button class="l-guest" onclick="goToPage('home')">Lanjutkan sebagai tamu &rarr;</button>
+      <p style="text-align:center;font-size:12px;color:var(--sage);margin-top:28px">Butuh bantuan? <strong style="color:var(--bark-lt)">it@nyawit.co.id</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     FRAME 2 — HOMEPAGE
+════════════════════════════════ -->
+<div id="home" class="page">
+  <nav class="navbar">
+    <div class="nav-inner">
+      <div class="logo" onclick="goToPage('home')">
+        <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 2s-5 3.5-5 9c0 2.8 2.2 5 5 5s5-2.2 5-5c0-5.5-5-9-5-9z"/><path d="M5.5 8C3.3 9.5 3 13 3 13s3.5 1 6-1c1.5-1 2.3-2.8 1.5-4.5C9.5 6.5 7.5 7 5.5 8z"/><path d="M18.5 8c2.2 1.5 2.5 5 2.5 5s-3.5 1-6-1c-1.5-1-2.3-2.8-1.5-4.5C14.5 6.5 16.5 7 18.5 8z"/><rect x="11" y="15" width="2" height="8" rx="1"/><rect x="8" y="20" width="8" height="2.5" rx="1.25"/></svg></div>
+        <div><div class="logo-name">PT. NYAWIT NIH ORANG</div><div class="logo-sub">Agro-Industri Kelapa Sawit</div></div>
+      </div>
+      <div class="nav-links">
+        <span class="nav-link active" onclick="goToPage('home')">Beranda</span>
+        <span class="nav-link" onclick="goToPage('profile')">Profil</span>
+        <span class="nav-link" onclick="goToPage('profile')">Produk</span>
+        <span class="nav-link" onclick="goToPage('contact')">Kontak</span>
+        <button class="nav-logout" onclick="goToPage('login')">Keluar</button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-ey"><div class="ey-line"></div><span class="ey-text">Industri Kelapa Sawit — Est. 2005</span></div>
+        <h1 class="display" style="margin-bottom:22px">PT. NYAWIT<br>NIH ORANG</h1>
+        <p class="body-lg" style="max-width:460px">Perusahaan perkebunan kelapa sawit terpadu yang berkomitmen menghadirkan produk berkualitas tinggi dan berkelanjutan untuk pasar domestik maupun ekspor.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-f" onclick="goToPage('profile')">Lihat Profil Kami</button>
+          <button class="btn btn-ol" onclick="goToPage('contact')">Hubungi Kami</button>
+        </div>
+      </div>
+      <div class="ph ph-palm hero-img"><span>Perkebunan Kelapa Sawit</span></div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div class="strip-inner">
+      <div class="strip-stat"><div class="strip-num">18+</div><div class="strip-lbl">Tahun Berpengalaman</div></div>
+      <div class="strip-stat"><div class="strip-num">12K</div><div class="strip-lbl">Hektar Perkebunan</div></div>
+      <div class="strip-stat"><div class="strip-num">5</div><div class="strip-lbl">Unit Pengolahan</div></div>
+      <div class="strip-stat"><div class="strip-num">300+</div><div class="strip-lbl">Tenaga Kerja</div></div>
+    </div>
+  </div>
+
+  <section class="section" style="background:var(--ivory)">
+    <div class="inner">
+      <div class="about-grid">
+        <div>
+          <span class="label label-g">Tentang Kami</span>
+          <h2 class="h2" style="margin-bottom:20px">Penggerak Industri Sawit Nasional</h2>
+          <p class="body-lg" style="margin-bottom:16px">PT. Nyawit Nih Orang adalah perusahaan agro-industri yang bergerak di bidang perkebunan dan pengolahan kelapa sawit. Dengan pengalaman lebih dari 18 tahun, kami menjadi salah satu pemain utama di industri minyak kelapa sawit Indonesia.</p>
+          <p class="body-md" style="margin-bottom:32px">Kami mengoperasikan kebun dengan luas lebih dari 12.000 hektar yang tersebar di Kalimantan dan Sumatera, didukung fasilitas pengolahan modern berstandar internasional.</p>
+          <button class="btn btn-f" onclick="goToPage('profile')">Pelajari Lebih Lanjut</button>
+        </div>
+        <div class="ph ph-steel about-img"><span>Fasilitas Pengolahan</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--cream)">
+    <div class="inner">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end">
+        <div><span class="label label-a">Produk Unggulan</span><h2 class="h2">Produk Pilihan Kami</h2></div>
+        <button class="btn btn-ol" onclick="goToPage('profile')">Lihat Semua</button>
+      </div>
+      <div class="prod-grid">
+        <div class="card"><div class="ph ph-palm prod-img"><span>Crude Palm Oil</span></div><div class="prod-body"><span class="prod-tag">Produk Utama</span><div class="prod-title">Crude Palm Oil (CPO)</div><p class="prod-desc">Minyak sawit mentah berkualitas premium dari TBS pilihan dengan rendemen optimal dan standar ekspor.</p></div></div>
+        <div class="card"><div class="ph ph-amber prod-img"><span>Palm Kernel Oil</span></div><div class="prod-body"><span class="prod-tag">Turunan Sawit</span><div class="prod-title">Palm Kernel Oil (PKO)</div><p class="prod-desc">Minyak inti sawit untuk industri pangan, kosmetik, dan produk oleokimia bernilai tinggi.</p></div></div>
+        <div class="card"><div class="ph ph-earth prod-img"><span>Palm Kernel Shell</span></div><div class="prod-body"><span class="prod-tag">Biomassa</span><div class="prod-title">Palm Kernel Shell (PKS)</div><p class="prod-desc">Cangkang inti sawit sebagai bahan bakar biomassa terbarukan untuk energi industri ramah lingkungan.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <div class="cta-in">
+      <div class="cta-text"><h2 class="h2">Tertarik Bekerja Sama?</h2><p>Kami membuka peluang kemitraan strategis di bidang distribusi, pengolahan, dan pengembangan bisnis sektor kelapa sawit nasional.</p></div>
+      <button class="cta-btn" onclick="goToPage('contact')">Hubungi Kami Sekarang</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="logo" style="margin-bottom:14px"><div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 2s-5 3.5-5 9c0 2.8 2.2 5 5 5s5-2.2 5-5c0-5.5-5-9-5-9z"/><path d="M5.5 8C3.3 9.5 3 13 3 13s3.5 1 6-1c1.5-1 2.3-2.8 1.5-4.5C9.5 6.5 7.5 7 5.5 8z"/><path d="M18.5 8c2.2 1.5 2.5 5 2.5 5s-3.5 1-6-1c-1.5-1-2.3-2.8-1.5-4.5C14.5 6.5 16.5 7 18.5 8z"/><rect x="11" y="15" width="2" height="8" rx="1"/><rect x="8" y="20" width="8" height="2.5" rx="1.25"/></svg></div><div><div class="ft-logo-name">PT. NYAWIT NIH ORANG</div><div class="ft-logo-sub">Agro-Industri Kelapa Sawit</div></div></div>
+        <p class="ft-about">Perusahaan perkebunan dan pengolahan kelapa sawit terpercaya dengan standar internasional dan komitmen keberlanjutan.</p>
+      </div>
+      <div><div class="ft-title">Navigasi</div><div class="ft-link" onclick="goToPage('home')">Beranda</div><div class="ft-link" onclick="goToPage('profile')">Profil Perusahaan</div><div class="ft-link" onclick="goToPage('profile')">Produk Kami</div><div class="ft-link" onclick="goToPage('contact')">Hubungi Kami</div></div>
+      <div><div class="ft-title">Kontak</div><div class="ft-link">Jl. Industri Sawit No. 88</div><div class="ft-link">Pekanbaru, Riau 28291</div><div class="ft-link" style="margin-top:6px">info@nyawit.co.id</div><div class="ft-link">+62 761 123 4567</div></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2025 PT. Nyawit Nih Orang. Seluruh hak cipta dilindungi.</span><span>Dibuat dengan bangga di Indonesia</span></div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════
+     FRAME 3 — PROFILE + PRODUCTS
+════════════════════════════════ -->
+<div id="profile" class="page">
+  <nav class="navbar">
+    <div class="nav-inner">
+      <div class="logo" onclick="goToPage('home')">
+        <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 2s-5 3.5-5 9c0 2.8 2.2 5 5 5s5-2.2 5-5c0-5.5-5-9-5-9z"/><path d="M5.5 8C3.3 9.5 3 13 3 13s3.5 1 6-1c1.5-1 2.3-2.8 1.5-4.5C9.5 6.5 7.5 7 5.5 8z"/><path d="M18.5 8c2.2 1.5 2.5 5 2.5 5s-3.5 1-6-1c-1.5-1-2.3-2.8-1.5-4.5C14.5 6.5 16.5 7 18.5 8z"/><rect x="11" y="15" width="2" height="8" rx="1"/><rect x="8" y="20" width="8" height="2.5" rx="1.25"/></svg></div>
+        <div><div class="logo-name">PT. NYAWIT NIH ORANG</div><div class="logo-sub">Agro-Industri Kelapa Sawit</div></div>
+      </div>
+      <div class="nav-links">
+        <span class="nav-link" onclick="goToPage('home')">Beranda</span>
+        <span class="nav-link active" onclick="goToPage('profile')">Profil</span>
+        <span class="nav-link active" onclick="goToPage('profile')">Produk</span>
+        <span class="nav-link" onclick="goToPage('contact')">Kontak</span>
+        <button class="nav-logout" onclick="goToPage('login')">Keluar</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="breadcrumb">Beranda &rsaquo; <span>Profil Perusahaan</span></div>
+      <h1 class="display light" style="margin-bottom:14px">Profil Perusahaan</h1>
+      <p style="color:rgba(245,240,232,.65);font-size:16px;max-width:560px;line-height:1.7">Mengenal lebih dalam perjalanan, nilai-nilai, dan komitmen kami dalam membangun industri sawit yang berkelanjutan.</p>
+    </div>
+  </div>
+
+  <section class="section" style="background:var(--ivory)">
+    <div class="inner">
+      <div class="about-grid">
+        <div>
+          <span class="label label-g">Sejak 2005</span>
+          <h2 class="h2" style="margin-bottom:20px">Dua Dekade Mengakar di Industri</h2>
+          <p class="body-lg" style="margin-bottom:16px">PT. Nyawit Nih Orang didirikan pada tahun 2005 oleh sekelompok praktisi berpengalaman di sektor agribisnis nasional. Berawal dari kebun seluas 500 hektar di Riau, kini kami berkembang menjadi perusahaan terpadu yang mengelola seluruh rantai nilai industri kelapa sawit.</p>
+          <p class="body-md" style="margin-bottom:16px">Bidang usaha mencakup budidaya dan perawatan tanaman, pengolahan tandan buah segar (TBS), produksi minyak sawit mentah (CPO), serta distribusi dan ekspor produk turunan ke pasar internasional.</p>
+          <p class="body-md">Berkomitmen pada prinsip RSPO, kami memastikan setiap aspek operasional memenuhi standar lingkungan, sosial, dan tata kelola yang ketat.</p>
+        </div>
+        <div class="ph ph-palm" style="height:400px;border-radius:var(--r-xl);box-shadow:var(--sh-lg)"><span>Kebun Aerial View</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--cream)">
+    <div class="inner">
+      <div style="text-align:center;max-width:540px;margin:0 auto"><span class="label label-a">Fondasi Kami</span><h2 class="h2">Visi dan Misi</h2></div>
+      <div class="vm-grid">
+        <div class="vm-card visi">
+          <div class="vm-icon g"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2D5E46" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <div class="vm-title">Visi</div>
+          <p class="body-md" style="margin-bottom:20px">Menjadi perusahaan agro-industri kelapa sawit terkemuka di Asia Tenggara yang berkelanjutan, inovatif, dan memberikan nilai tambah optimal pada tahun 2035.</p>
+          <ul class="vm-list">
+            <li><div class="vm-dot g"></div>Pemimpin industri sawit berkelanjutan di kawasan regional</li>
+            <li><div class="vm-dot g"></div>Inovasi teknologi pertanian dan pengolahan terdepan</li>
+            <li><div class="vm-dot g"></div>Kesejahteraan petani plasma dan masyarakat sekitar</li>
+          </ul>
+        </div>
+        <div class="vm-card misi">
+          <div class="vm-icon a"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C08B2C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <div class="vm-title">Misi</div>
+          <ul class="vm-list">
+            <li><div class="vm-dot a"></div>Mengelola perkebunan sawit secara efisien dan bertanggung jawab terhadap lingkungan</li>
+            <li><div class="vm-dot a"></div>Menghasilkan produk CPO dan turunannya dengan kualitas premium berstandar ekspor</li>
+            <li><div class="vm-dot a"></div>Memberdayakan petani lokal melalui program kemitraan plasma dan koperasi</li>
+            <li><div class="vm-dot a"></div>Menerapkan teknologi pertanian presisi untuk meningkatkan produktivitas</li>
+            <li><div class="vm-dot a"></div>Menjaga keseimbangan antara pertumbuhan bisnis dan kelestarian ekosistem</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:var(--ivory)">
+    <div class="inner">
+      <span class="label label-g">Portofolio Produk</span>
+      <h2 class="h2" style="max-width:480px">Produk dan Layanan Kami</h2>
+      <div class="prod-grid-4">
+        <div class="card"><div class="ph ph-palm prod-img"><span>CPO</span></div><div class="prod-body"><span class="prod-tag">Utama</span><div class="prod-title">Crude Palm Oil</div><p class="prod-desc">Minyak sawit mentah premium dari TBS pilihan dengan standar kualitas RSPO internasional.</p></div></div>
+        <div class="card"><div class="ph ph-amber prod-img"><span>PKO</span></div><div class="prod-body"><span class="prod-tag">Turunan</span><div class="prod-title">Palm Kernel Oil</div><p class="prod-desc">Minyak inti sawit untuk industri pangan, kosmetik, dan oleokimia bernilai tinggi.</p></div></div>
+        <div class="card"><div class="ph ph-earth prod-img"><span>PKS</span></div><div class="prod-body"><span class="prod-tag">Biomassa</span><div class="prod-title">Palm Kernel Shell</div><p class="prod-desc">Cangkang biomassa terbarukan sebagai sumber energi bersih dan ramah lingkungan.</p></div></div>
+        <div class="card"><div class="ph ph-steel prod-img"><span>Palm Fiber</span></div><div class="prod-body"><span class="prod-tag">Serat</span><div class="prod-title">Palm Pressed Fiber</div><p class="prod-desc">Serat perasan kelapa sawit untuk bahan bakar boiler dan produk turunan industri.</p></div></div>
+      </div>
+      <div style="text-align:center;margin-top:48px"><button class="btn btn-f" onclick="goToPage('contact')">Hubungi Kami untuk Pemesanan</button></div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <div class="cta-in">
+      <div class="cta-text"><h2 class="h2">Siap Menjalin Kerja Sama?</h2><p>Tim kami siap berdiskusi tentang kebutuhan dan peluang bisnis yang saling menguntungkan bagi semua pihak.</p></div>
+      <button class="cta-btn" onclick="goToPage('contact')">Mulai Diskusi</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="logo" style="margin-bottom:14px"><div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 2s-5 3.5-5 9c0 2.8 2.2 5 5 5s5-2.2 5-5c0-5.5-5-9-5-9z"/><path d="M5.5 8C3.3 9.5 3 13 3 13s3.5 1 6-1c1.5-1 2.3-2.8 1.5-4.5C9.5 6.5 7.5 7 5.5 8z"/><path d="M18.5 8c2.2 1.5 2.5 5 2.5 5s-3.5 1-6-1c-1.5-1-2.3-2.8-1.5-4.5C14.5 6.5 16.5 7 18.5 8z"/><rect x="11" y="15" width="2" height="8" rx="1"/><rect x="8" y="20" width="8" height="2.5" rx="1.25"/></svg></div><div><div class="ft-logo-name">PT. NYAWIT NIH ORANG</div><div class="ft-logo-sub">Agro-Industri Kelapa Sawit</div></div></div>
+        <p class="ft-about">Perusahaan perkebunan dan pengolahan kelapa sawit terpercaya dengan standar internasional.</p>
+      </div>
+      <div><div class="ft-title">Navigasi</div><div class="ft-link" onclick="goToPage('home')">Beranda</div><div class="ft-link" onclick="goToPage('profile')">Profil Perusahaan</div><div class="ft-link" onclick="goToPage('profile')">Produk Kami</div><div class="ft-link" onclick="goToPage('contact')">Hubungi Kami</div></div>
+      <div><div class="ft-title">Kontak</div><div class="ft-link">Jl. Industri Sawit No. 88</div><div class="ft-link">Pekanbaru, Riau 28291</div><div class="ft-link" style="margin-top:6px">info@nyawit.co.id</div><div class="ft-link">+62 761 123 4567</div></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2025 PT. Nyawit Nih Orang. Seluruh hak cipta dilindungi.</span><span>Dibuat dengan bangga di Indonesia</span></div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════
+     FRAME 4 — CONTACT
+════════════════════════════════ -->
+<div id="contact" class="page">
+  <nav class="navbar">
+    <div class="nav-inner">
+      <div class="logo" onclick="goToPage('home')">
+        <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 2s-5 3.5-5 9c0 2.8 2.2 5 5 5s5-2.2 5-5c0-5.5-5-9-5-9z"/><path d="M5.5 8C3.3 9.5 3 13 3 13s3.5 1 6-1c1.5-1 2.3-2.8 1.5-4.5C9.5 6.5 7.5 7 5.5 8z"/><path d="M18.5 8c2.2 1.5 2.5 5 2.5 5s-3.5 1-6-1c-1.5-1-2.3-2.8-1.5-4.5C14.5 6.5 16.5 7 18.5 8z"/><rect x="11" y="15" width="2" height="8" rx="1"/><rect x="8" y="20" width="8" height="2.5" rx="1.25"/></svg></div>
+        <div><div class="logo-name">PT. NYAWIT NIH ORANG</div><div class="logo-sub">Agro-Industri Kelapa Sawit</div></div>
+      </div>
+      <div class="nav-links">
+        <span class="nav-link" onclick="goToPage('home')">Beranda</span>
+        <span class="nav-link" onclick="goToPage('profile')">Profil</span>
+        <span class="nav-link" onclick="goToPage('profile')">Produk</span>
+        <span class="nav-link active" onclick="goToPage('contact')">Kontak</span>
+        <button class="nav-logout" onclick="goToPage('login')">Keluar</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-hero" style="background:linear-gradient(135deg,#2A1A0E 0%,#5C3A1E 100%)">
+    <div class="page-hero-inner">
+      <div class="breadcrumb">Beranda &rsaquo; <span>Hubungi Kami</span></div>
+      <h1 class="display light" style="margin-bottom:14px">Hubungi Kami</h1>
+      <p style="color:rgba(245,240,232,.65);font-size:16px;max-width:520px;line-height:1.7">Kami senang mendengar dari Anda. Kirimkan pertanyaan atau usulan kemitraan melalui formulir berikut.</p>
+    </div>
+  </div>
+
+  <section class="section" style="background:var(--cream)">
+    <div class="inner">
+      <div class="contact-grid">
+        <div class="form-wrap">
+          <span class="label label-t">Kirim Pesan</span>
+          <h2 class="h2" style="margin-bottom:8px">Ada yang Ingin Ditanyakan?</h2>
+          <p class="body-md" style="margin-bottom:32px">Isi formulir ini dan tim kami akan merespons dalam 1x24 jam kerja.</p>
+          <div class="fg"><label class="fl">Nama Lengkap</label><input class="fi" type="text" id="cName" placeholder="Masukkan nama lengkap Anda"></div>
+          <div class="fg"><label class="fl">Alamat Email</label><input class="fi" type="email" id="cEmail" placeholder="email@anda.com"></div>
+          <div class="fg"><label class="fl">Subjek</label><input class="fi" type="text" id="cSubject" placeholder="Perihal pesan Anda"></div>
+          <div class="fg"><label class="fl">Pesan</label><textarea class="fi textarea" id="cMessage" placeholder="Tuliskan pesan atau pertanyaan Anda..."></textarea></div>
+          <button class="btn btn-t" style="width:100%;justify-content:center;padding:15px" onclick="submitContact()">Kirim Pesan</button>
+          <div class="ok-box" id="okBox">Pesan berhasil dikirim. Terima kasih! Tim kami akan segera merespons pesan Anda.</div>
+          <div class="er-box" id="erBox">Harap lengkapi semua kolom yang diperlukan sebelum mengirim.</div>
+        </div>
+
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2D5E46" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="info-lbl">Alamat Kantor</div><div class="info-val">Jl. Industri Sawit No. 88, Kecamatan Marpoyan Damai</div><div class="info-sub">Pekanbaru, Riau 28291, Indonesia</div></div>
+          </div>
+          <div class="info-card">
+            <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2D5E46" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><div class="info-lbl">Email</div><div class="info-val">info@nyawit.co.id</div><div class="info-sub">Respons dalam 1x24 jam kerja</div></div>
+          </div>
+          <div class="info-card">
+            <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2D5E46" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.94 5.94l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div><div class="info-lbl">Telepon</div><div class="info-val">+62 761 123 4567</div><div class="info-sub">Senin – Jumat, 08.00 – 17.00 WIB</div></div>
+          </div>
+          <div class="info-card">
+            <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2D5E46" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="info-lbl">Jam Operasional</div><div class="info-val">Senin – Jumat: 08.00 – 17.00 WIB</div><div class="info-sub">Sabtu: 08.00 – 13.00 WIB</div></div>
+          </div>
+          <div class="map-ph"><div class="map-pulse"></div><span style="position:relative;z-index:1">Peta Lokasi — Pekanbaru, Riau</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="logo" style="margin-bottom:14px"><div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 2s-5 3.5-5 9c0 2.8 2.2 5 5 5s5-2.2 5-5c0-5.5-5-9-5-9z"/><path d="M5.5 8C3.3 9.5 3 13 3 13s3.5 1 6-1c1.5-1 2.3-2.8 1.5-4.5C9.5 6.5 7.5 7 5.5 8z"/><path d="M18.5 8c2.2 1.5 2.5 5 2.5 5s-3.5 1-6-1c-1.5-1-2.3-2.8-1.5-4.5C14.5 6.5 16.5 7 18.5 8z"/><rect x="11" y="15" width="2" height="8" rx="1"/><rect x="8" y="20" width="8" height="2.5" rx="1.25"/></svg></div><div><div class="ft-logo-name">PT. NYAWIT NIH ORANG</div><div class="ft-logo-sub">Agro-Industri Kelapa Sawit</div></div></div>
+        <p class="ft-about">Perusahaan perkebunan dan pengolahan kelapa sawit terpercaya dengan standar internasional.</p>
+      </div>
+      <div><div class="ft-title">Navigasi</div><div class="ft-link" onclick="goToPage('home')">Beranda</div><div class="ft-link" onclick="goToPage('profile')">Profil Perusahaan</div><div class="ft-link" onclick="goToPage('profile')">Produk Kami</div><div class="ft-link" onclick="goToPage('contact')">Hubungi Kami</div></div>
+      <div><div class="ft-title">Kontak</div><div class="ft-link">Jl. Industri Sawit No. 88</div><div class="ft-link">Pekanbaru, Riau 28291</div><div class="ft-link" style="margin-top:6px">info@nyawit.co.id</div><div class="ft-link">+62 761 123 4567</div></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2025 PT. Nyawit Nih Orang. Seluruh hak cipta dilindungi.</span><span>Dibuat dengan bangga di Indonesia</span></div>
+  </footer>
+</div>
+
+<script>
+function goToPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const t=document.getElementById(id);
+  if(t){t.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+}
+function handleLogin(){
+  const email=document.getElementById('loginEmail').value.trim();
+  const pass=document.getElementById('loginPassword').value.trim();
+  const notif=document.getElementById('loginNotif');
+  notif.className='l-notif';
+  if(!email||!pass){
+    notif.className='l-notif notif-err show';
+    notif.textContent='Harap isi email dan kata sandi terlebih dahulu.';
+    return;
+  }
+  notif.className='l-notif notif-ok show';
+  notif.textContent='Berhasil masuk. Mengalihkan ke beranda...';
+  setTimeout(()=>goToPage('home'),1300);
+}
+function submitContact(){
+  const name=document.getElementById('cName').value.trim();
+  const email=document.getElementById('cEmail').value.trim();
+  const msg=document.getElementById('cMessage').value.trim();
+  const ok=document.getElementById('okBox');
+  const er=document.getElementById('erBox');
+  ok.classList.remove('show');er.classList.remove('show');
+  if(!name||!email||!msg){er.classList.add('show');setTimeout(()=>er.classList.remove('show'),4000);return;}
+  ok.classList.add('show');
+  document.getElementById('cName').value='';
+  document.getElementById('cEmail').value='';
+  document.getElementById('cSubject').value='';
+  document.getElementById('cMessage').value='';
+  setTimeout(()=>ok.classList.remove('show'),5500);
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&document.getElementById('login').classList.contains('active'))handleLogin();
+});
+</script>
+</body>
+</html>
