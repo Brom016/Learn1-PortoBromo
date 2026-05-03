@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial Hell – 6 Slide Instagram</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #E8F0FC;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 32px 16px;
+    gap: 24px;
+  }
+  h1.page-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #0052CC;
+    letter-spacing: -0.02em;
+  }
+  .subtitle {
+    font-size: 13px;
+    color: #555;
+    margin-top: 4px;
+  }
+
+  /* SLIDE VIEWER */
+  #viewer {
+    width: 540px;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 32px rgba(0, 40, 120, 0.18);
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    pointer-events: none;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  /* ===== SLIDE 1 ===== */
+  .s1 {
+    background: #0052CC;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10%;
+  }
+  .s1 .eyebrow { font-size: clamp(10px,2vw,13px); font-weight: 600; color: #80AAFF; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 18px; }
+  .s1 h2 { font-family: 'Syne', sans-serif; font-size: clamp(44px,9vw,80px); font-weight: 800; color: #fff; line-height: 0.92; margin-bottom: 22px; }
+  .s1 .divider { width: 52px; height: 3px; background: #fff; margin-bottom: 22px; }
+  .s1 p { font-size: clamp(14px,2.6vw,18px); color: #CCE0FF; line-height: 1.55; max-width: 78%; }
+  .s1 .swipe { margin-top: auto; padding-top: 28px; font-size: clamp(10px,1.8vw,13px); color: #80AAFF; }
+
+  /* ===== SLIDE 2 ===== */
+  .s2 { background: #fff; display: flex; flex-direction: column; justify-content: center; padding: 10%; }
+  .s2 .eyebrow { font-size: clamp(10px,1.8vw,12px); font-weight: 600; color: #0052CC; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+  .s2 h2 { font-family: 'Syne', sans-serif; font-size: clamp(22px,5vw,36px); font-weight: 800; color: #002A80; line-height: 1.1; margin-bottom: 20px; }
+  .s2 .callout { background: #EBF2FF; border-left: 4px solid #0052CC; border-radius: 0 6px 6px 0; padding: 16px 18px; margin-bottom: 18px; }
+  .s2 .callout p { font-size: clamp(13px,2.5vw,16px); color: #003380; line-height: 1.6; font-weight: 500; }
+  .s2 .body { font-size: clamp(12px,2.3vw,15px); color: #444; line-height: 1.6; }
+  .s2 .body strong { color: #0052CC; }
+  .s2 .body .danger { font-weight: 600; color: #C20000; }
+  .s2 .pg { margin-top: auto; padding-top: 20px; font-size: clamp(10px,1.6vw,12px); color: #999; display: flex; align-items: center; gap: 8px; }
+  .s2 .pg::before { content: ''; display: block; width: 24px; height: 2px; background: #0052CC; }
+
+  /* ===== SLIDE 3 ===== */
+  .s3 { background: #0052CC; display: flex; flex-direction: column; padding: 10%; }
+  .s3 .eyebrow { font-size: clamp(10px,1.8vw,12px); font-weight: 600; color: #80AAFF; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+  .s3 h2 { font-family: 'Syne', sans-serif; font-size: clamp(20px,4.5vw,30px); font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 22px; }
+  .s3 .items { display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .s3 .item { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start; }
+  .s3 .num { font-family: 'Syne', sans-serif; font-size: clamp(16px,3vw,22px); font-weight: 800; color: #fff; min-width: 28px; }
+  .s3 .item p { font-size: clamp(12px,2.3vw,15px); color: #CCE0FF; line-height: 1.5; }
+  .s3 .pg { padding-top: 16px; font-size: clamp(10px,1.6vw,12px); color: #80AAFF; }
+
+  /* ===== SLIDE 4 ===== */
+  .s4 { background: #fff; display: flex; flex-direction: column; padding: 10%; }
+  .s4 .eyebrow { font-size: clamp(10px,1.8vw,12px); font-weight: 600; color: #0052CC; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+  .s4 h2 { font-family: 'Syne', sans-serif; font-size: clamp(20px,4.5vw,30px); font-weight: 800; color: #002A80; line-height: 1.1; margin-bottom: 18px; }
+  .s4 .cards { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .s4 .card { border: 1.5px solid #CCE0FF; border-radius: 8px; padding: 12px 16px; }
+  .s4 .card h3 { font-family: 'Syne', sans-serif; font-size: clamp(12px,2.3vw,14px); font-weight: 700; color: #0052CC; margin-bottom: 4px; }
+  .s4 .card p { font-size: clamp(11px,2vw,13px); color: #444; line-height: 1.5; }
+  .s4 .pg { padding-top: 16px; font-size: clamp(10px,1.6vw,12px); color: #999; }
+
+  /* ===== SLIDE 5 ===== */
+  .s5 { background: #0052CC; display: flex; flex-direction: column; padding: 10%; }
+  .s5 .eyebrow { font-size: clamp(10px,1.8vw,12px); font-weight: 600; color: #80AAFF; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+  .s5 h2 { font-family: 'Syne', sans-serif; font-size: clamp(20px,4.5vw,30px); font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 20px; }
+  .s5 .items { display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .s5 .item { background: #fff; border-radius: 8px; padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start; }
+  .s5 .num { font-family: 'Syne', sans-serif; font-size: clamp(14px,2.8vw,18px); font-weight: 800; color: #0052CC; min-width: 22px; }
+  .s5 .item h3 { font-size: clamp(12px,2.3vw,15px); font-weight: 600; color: #002A80; margin-bottom: 2px; }
+  .s5 .item p { font-size: clamp(11px,2vw,13px); color: #444; line-height: 1.45; }
+  .s5 .pg { padding-top: 16px; font-size: clamp(10px,1.6vw,12px); color: #80AAFF; }
+
+  /* ===== SLIDE 6 ===== */
+  .s6 { background: #fff; display: flex; flex-direction: column; padding: 10%; }
+  .s6 .eyebrow { font-size: clamp(10px,1.8vw,12px); font-weight: 600; color: #0052CC; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+  .s6 h2 { font-family: 'Syne', sans-serif; font-size: clamp(18px,4vw,26px); font-weight: 800; color: #002A80; line-height: 1.1; margin-bottom: 16px; }
+  .s6 .items { display: flex; flex-direction: column; gap: 10px; }
+  .s6 .item { border-left: 3px solid #0052CC; padding: 10px 14px; background: #EBF2FF; border-radius: 0 6px 6px 0; }
+  .s6 .item h3 { font-size: clamp(12px,2.3vw,14px); font-weight: 600; color: #002A80; margin-bottom: 2px; }
+  .s6 .item p { font-size: clamp(11px,2vw,13px); color: #555; line-height: 1.45; }
+  .s6 .cta { margin-top: auto; padding-top: 16px; background: #0052CC; border-radius: 8px; padding: 16px; text-align: center; }
+  .s6 .cta h3 { font-family: 'Syne', sans-serif; font-size: clamp(14px,2.8vw,18px); font-weight: 800; color: #fff; margin-bottom: 4px; }
+  .s6 .cta p { font-size: clamp(11px,2vw,13px); color: #CCE0FF; }
+  .s6 .pg { padding-top: 12px; font-size: clamp(10px,1.6vw,12px); color: #999; }
+
+  /* CONTROLS */
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .controls button {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1.5px solid #0052CC;
+    transition: background 0.2s, color 0.2s;
+  }
+  #btn-prev { background: #fff; color: #0052CC; }
+  #btn-prev:hover { background: #EBF2FF; }
+  #btn-next { background: #0052CC; color: #fff; }
+  #btn-next:hover { background: #003D99; }
+  #dots { display: flex; gap: 6px; }
+  .dot {
+    height: 8px;
+    border-radius: 4px;
+    background: #B3C8F0;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 8px;
+  }
+  .dot.active { width: 22px; background: #0052CC; }
+
+  .hint { font-size: 12px; color: #777; text-align: center; }
+
+  /* PRINT / SCREENSHOT helpers */
+  @media print {
+    #viewer { page-break-after: always; }
+    .controls, .hint, h1.page-title, .subtitle { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div>
+  <h1 class="page-title">Tutorial Hell — 6 Slide Instagram</h1>
+  <p class="subtitle">1080×1080 · Dominan Biru Putih · Flat Design</p>
+</div>
+
+<div id="viewer">
+
+  <!-- SLIDE 1 -->
+  <div class="slide s1 active">
+    <span class="eyebrow">Belajar Coding</span>
+    <h2>TUTORIAL<br>HELL</h2>
+    <div class="divider"></div>
+    <p>Kamu terus nonton tutorial,<br>tapi nggak pernah build sendiri?</p>
+    <span class="swipe">Swipe untuk tahu lebih →</span>
+  </div>
+
+  <!-- SLIDE 2 -->
+  <div class="slide s2">
+    <span class="eyebrow">Definisi</span>
+    <h2>Apa Itu<br>Tutorial Hell?</h2>
+    <div class="callout">
+      <p>Kondisi di mana kamu terus-menerus menonton tutorial tanpa pernah membuat sesuatu sendiri.</p>
+    </div>
+    <p class="body">Nonton tutorial bikin kamu <strong>merasa paham</strong>, tapi begitu harus ngoding sendiri — <span class="danger">blank total.</span></p>
+    <div class="pg">2 / 6</div>
+  </div>
+
+  <!-- SLIDE 3 -->
+  <div class="slide s3">
+    <span class="eyebrow">Tanda-tanda</span>
+    <h2>Kamu Sedang<br>Terjebak Jika...</h2>
+    <div class="items">
+      <div class="item">
+        <span class="num">01</span>
+        <p>Sudah nonton 10+ tutorial, belum punya 1 project yang selesai</p>
+      </div>
+      <div class="item">
+        <span class="num">02</span>
+        <p>Merasa harus "mengerti semua dulu" sebelum mulai coding</p>
+      </div>
+      <div class="item">
+        <span class="num">03</span>
+        <p>Selesai 1 tutorial, langsung cari tutorial baru lagi</p>
+      </div>
+    </div>
+    <div class="pg">3 / 6</div>
+  </div>
+
+  <!-- SLIDE 4 -->
+  <div class="slide s4">
+    <span class="eyebrow">Penyebab</span>
+    <h2>Kenapa Ini<br>Terjadi?</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Zona Nyaman</h3>
+        <p>Ngikutin tutorial = nggak ada risiko salah. Enak, tapi nggak maju.</p>
+      </div>
+      <div class="card">
+        <h3>Ilusi Belajar</h3>
+        <p>Nonton ≠ ngerti. Otak hanya passive consuming, bukan aktif berpikir.</p>
+      </div>
+      <div class="card">
+        <h3>Takut Error</h3>
+        <p>Takut salah bikin kamu menghindari challenge nyata yang paling mendidik.</p>
+      </div>
+    </div>
+    <div class="pg">4 / 6</div>
+  </div>
+
+  <!-- SLIDE 5 -->
+  <div class="slide s5">
+    <span class="eyebrow">Solusi · 1 dari 2</span>
+    <h2>Cara Keluar<br>Tutorial Hell</h2>
+    <div class="items">
+      <div class="item">
+        <span class="num">1</span>
+        <div>
+          <h3>Stop nonton, mulai build</h3>
+          <p>Buat apapun — todo list, kalkulator. Yang penting jalan tanpa panduan.</p>
+        </div>
+      </div>
+      <div class="item">
+        <span class="num">2</span>
+        <div>
+          <h3>Buat project dari ide sendiri</h3>
+          <p>Passion project > clone tutorial. Motivasimu akan jauh lebih kuat.</p>
+        </div>
+      </div>
+      <div class="item">
+        <span class="num">3</span>
+        <div>
+          <h3>Google sendiri dulu sebelum nonton</h3>
+          <p>Debugging mandiri adalah cara belajar yang sesungguhnya.</p>
+        </div>
+      </div>
+    </div>
+    <div class="pg">5 / 6</div>
+  </div>
+
+  <!-- SLIDE 6 -->
+  <div class="slide s6">
+    <span class="eyebrow">Solusi · 2 dari 2</span>
+    <h2>Lanjutkan<br>Perjalananmu</h2>
+    <div class="items">
+      <div class="item">
+        <h3>4 · Ikut coding challenge</h3>
+        <p>LeetCode, HackerRank, Frontend Mentor — selesaikan 1 soal per hari.</p>
+      </div>
+      <div class="item">
+        <h3>5 · Batasi waktu nonton tutorial</h3>
+        <p>Max 30 menit nonton, 1 jam langsung praktek. Terapkan rasio ini konsisten.</p>
+      </div>
+      <div class="item">
+        <h3>6 · Punya goal project yang jelas</h3>
+        <p>Tulis: "Bulan ini aku selesaikan 1 web app." Komit dan laksanakan.</p>
+      </div>
+    </div>
+    <div class="cta" style="margin-top:16px;background:#0052CC;border-radius:8px;padding:16px;text-align:center;">
+      <h3 style="font-family:'Syne',sans-serif;font-size:clamp(14px,2.8vw,18px);font-weight:800;color:#fff;margin-bottom:4px;">Mulai sekarang. Bukan besok.</h3>
+      <p style="font-size:clamp(11px,2vw,13px);color:#CCE0FF;">Error itu bagian dari proses. Embrace it.</p>
+    </div>
+    <div class="pg">6 / 6</div>
+  </div>
+
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <button id="btn-prev" onclick="go(-1)">← Prev</button>
+  <div id="dots"></div>
+  <button id="btn-next" onclick="go(1)">Next →</button>
+</div>
+
+<p class="hint">Gunakan browser screenshot (F12 → screenshot node) atau ekstensi "GoFullPage" untuk capture tiap slide · Ukuran ideal: 1080×1080px</p>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const dotsEl = document.getElementById('dots');
+let cur = 0;
+
+slides.forEach((_, i) => {
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.onclick = () => showSlide(i);
+  dotsEl.appendChild(dot);
+});
+
+function showSlide(n) {
+  const prev = cur;
+  cur = Math.max(0, Math.min(slides.length - 1, n));
+  if (cur === prev) return;
+
+  slides[prev].classList.remove('active');
+  slides[prev].style.transform = cur > prev ? 'translateX(-60px)' : 'translateX(60px)';
+
+  slides[cur].style.transition = 'none';
+  slides[cur].style.transform = cur > prev ? 'translateX(60px)' : 'translateX(-60px)';
+  slides[cur].style.opacity = '0';
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      slides[cur].style.transition = '';
+      slides[cur].classList.add('active');
+    });
+  });
+
+  dotsEl.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === cur);
+  });
+}
+
+function go(dir) { showSlide(cur + dir); }
+
+let sx = null;
+const viewer = document.getElementById('viewer');
+viewer.addEventListener('touchstart', e => { sx = e.touches[0].clientX; });
+viewer.addEventListener('touchend', e => {
+  if (sx !== null) {
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+    sx = null;
+  }
+});
+</script>
+</body>
+</html>
