@@ -3,354 +3,543 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tutorial Hell – 6 Slide Instagram</title>
+<title>Tutorial Hell — 6 Slide IG</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: #E8F0FC;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 32px 16px;
-    gap: 24px;
-  }
-  h1.page-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 20px;
-    font-weight: 800;
-    color: #0052CC;
-    letter-spacing: -0.02em;
-  }
-  .subtitle {
-    font-size: 13px;
-    color: #555;
-    margin-top: 4px;
-  }
+*{box-sizing:border-box;margin:0;padding:0}
 
-  /* SLIDE VIEWER */
-  #viewer {
-    width: 540px;
-    max-width: 100%;
-    aspect-ratio: 1 / 1;
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 32px rgba(0, 40, 120, 0.18);
-  }
+body{
+  font-family:'DM Sans',sans-serif;
+  background:#dae5f8;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:24px 12px 40px;
+  gap:18px;
+}
 
-  .slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transform: translateX(60px);
-    transition: opacity 0.35s ease, transform 0.35s ease;
-    pointer-events: none;
-  }
-  .slide.active {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
-  }
+.pg-title{
+  font-family:'Syne',sans-serif;
+  font-size:17px;font-weight:800;
+  color:#0052CC;text-align:center;
+}
+.pg-sub{font-size:12px;color:#666;text-align:center;margin-top:3px;}
 
-  /* ===== SLIDE 1 ===== */
-  .s1 {
-    background: #0052CC;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 10%;
-  }
-  .s1 .eyebrow { font-size: clamp(10px,2vw,13px); font-weight: 600; color: #80AAFF; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 18px; }
-  .s1 h2 { font-family: 'Syne', sans-serif; font-size: clamp(44px,9vw,80px); font-weight: 800; color: #fff; line-height: 0.92; margin-bottom: 22px; }
-  .s1 .divider { width: 52px; height: 3px; background: #fff; margin-bottom: 22px; }
-  .s1 p { font-size: clamp(14px,2.6vw,18px); color: #CCE0FF; line-height: 1.55; max-width: 78%; }
-  .s1 .swipe { margin-top: auto; padding-top: 28px; font-size: clamp(10px,1.8vw,13px); color: #80AAFF; }
+/* ── VIEWER ── */
+#viewer{
+  width:min(520px, calc(100vw - 24px));
+  aspect-ratio:1/1;
+  position:relative;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 6px 36px rgba(0,40,140,.18);
+  flex-shrink:0;
+}
 
-  /* ===== SLIDE 2 ===== */
-  .s2 { background: #fff; display: flex; flex-direction: column; justify-content: center; padding: 10%; }
-  .s2 .eyebrow { font-size: clamp(10px,1.8vw,12px); font-weight: 600; color: #0052CC; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
-  .s2 h2 { font-family: 'Syne', sans-serif; font-size: clamp(22px,5vw,36px); font-weight: 800; color: #002A80; line-height: 1.1; margin-bottom: 20px; }
-  .s2 .callout { background: #EBF2FF; border-left: 4px solid #0052CC; border-radius: 0 6px 6px 0; padding: 16px 18px; margin-bottom: 18px; }
-  .s2 .callout p { font-size: clamp(13px,2.5vw,16px); color: #003380; line-height: 1.6; font-weight: 500; }
-  .s2 .body { font-size: clamp(12px,2.3vw,15px); color: #444; line-height: 1.6; }
-  .s2 .body strong { color: #0052CC; }
-  .s2 .body .danger { font-weight: 600; color: #C20000; }
-  .s2 .pg { margin-top: auto; padding-top: 20px; font-size: clamp(10px,1.6vw,12px); color: #999; display: flex; align-items: center; gap: 8px; }
-  .s2 .pg::before { content: ''; display: block; width: 24px; height: 2px; background: #0052CC; }
+/* ── SLIDES ── */
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s ease;
+}
+.slide.active{opacity:1;pointer-events:auto;}
+.bg-blue{background:#0052CC;}
+.bg-white{background:#fff;}
 
-  /* ===== SLIDE 3 ===== */
-  .s3 { background: #0052CC; display: flex; flex-direction: column; padding: 10%; }
-  .s3 .eyebrow { font-size: clamp(10px,1.8vw,12px); font-weight: 600; color: #80AAFF; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
-  .s3 h2 { font-family: 'Syne', sans-serif; font-size: clamp(20px,4.5vw,30px); font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 22px; }
-  .s3 .items { display: flex; flex-direction: column; gap: 12px; flex: 1; }
-  .s3 .item { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start; }
-  .s3 .num { font-family: 'Syne', sans-serif; font-size: clamp(16px,3vw,22px); font-weight: 800; color: #fff; min-width: 28px; }
-  .s3 .item p { font-size: clamp(12px,2.3vw,15px); color: #CCE0FF; line-height: 1.5; }
-  .s3 .pg { padding-top: 16px; font-size: clamp(10px,1.6vw,12px); color: #80AAFF; }
+/* ── HEADER ── */
+.sh{padding:7% 8% 2%;flex-shrink:0;}
+.eyebrow{
+  display:block;
+  font-size:clamp(9px,2vw,12px);
+  font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:clamp(4px,1vw,7px);
+}
+.slide-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(20px,5.5vw,34px);
+  font-weight:800;line-height:1.05;
+}
+.on-blue .eyebrow{color:#80AAFF;}
+.on-blue .slide-title{color:#fff;}
+.on-white .eyebrow{color:#0052CC;}
+.on-white .slide-title{color:#002A80;}
 
-  /* ===== SLIDE 4 ===== */
-  .s4 { background: #fff; display: flex; flex-direction: column; padding: 10%; }
-  .s4 .eyebrow { font-size: clamp(10px,1.8vw,12px); font-weight: 600; color: #0052CC; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
-  .s4 h2 { font-family: 'Syne', sans-serif; font-size: clamp(20px,4.5vw,30px); font-weight: 800; color: #002A80; line-height: 1.1; margin-bottom: 18px; }
-  .s4 .cards { display: flex; flex-direction: column; gap: 10px; flex: 1; }
-  .s4 .card { border: 1.5px solid #CCE0FF; border-radius: 8px; padding: 12px 16px; }
-  .s4 .card h3 { font-family: 'Syne', sans-serif; font-size: clamp(12px,2.3vw,14px); font-weight: 700; color: #0052CC; margin-bottom: 4px; }
-  .s4 .card p { font-size: clamp(11px,2vw,13px); color: #444; line-height: 1.5; }
-  .s4 .pg { padding-top: 16px; font-size: clamp(10px,1.6vw,12px); color: #999; }
+/* ── ILLUSTRATION ZONE ── */
+.si{
+  flex:1;min-height:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 8%;
+}
+.si svg{width:100%;height:100%;max-height:100%;}
 
-  /* ===== SLIDE 5 ===== */
-  .s5 { background: #0052CC; display: flex; flex-direction: column; padding: 10%; }
-  .s5 .eyebrow { font-size: clamp(10px,1.8vw,12px); font-weight: 600; color: #80AAFF; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
-  .s5 h2 { font-family: 'Syne', sans-serif; font-size: clamp(20px,4.5vw,30px); font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 20px; }
-  .s5 .items { display: flex; flex-direction: column; gap: 12px; flex: 1; }
-  .s5 .item { background: #fff; border-radius: 8px; padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start; }
-  .s5 .num { font-family: 'Syne', sans-serif; font-size: clamp(14px,2.8vw,18px); font-weight: 800; color: #0052CC; min-width: 22px; }
-  .s5 .item h3 { font-size: clamp(12px,2.3vw,15px); font-weight: 600; color: #002A80; margin-bottom: 2px; }
-  .s5 .item p { font-size: clamp(11px,2vw,13px); color: #444; line-height: 1.45; }
-  .s5 .pg { padding-top: 16px; font-size: clamp(10px,1.6vw,12px); color: #80AAFF; }
+/* ── CONTENT ZONE ── */
+.sc{padding:2% 8% 7%;flex-shrink:0;}
 
-  /* ===== SLIDE 6 ===== */
-  .s6 { background: #fff; display: flex; flex-direction: column; padding: 10%; }
-  .s6 .eyebrow { font-size: clamp(10px,1.8vw,12px); font-weight: 600; color: #0052CC; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
-  .s6 h2 { font-family: 'Syne', sans-serif; font-size: clamp(18px,4vw,26px); font-weight: 800; color: #002A80; line-height: 1.1; margin-bottom: 16px; }
-  .s6 .items { display: flex; flex-direction: column; gap: 10px; }
-  .s6 .item { border-left: 3px solid #0052CC; padding: 10px 14px; background: #EBF2FF; border-radius: 0 6px 6px 0; }
-  .s6 .item h3 { font-size: clamp(12px,2.3vw,14px); font-weight: 600; color: #002A80; margin-bottom: 2px; }
-  .s6 .item p { font-size: clamp(11px,2vw,13px); color: #555; line-height: 1.45; }
-  .s6 .cta { margin-top: auto; padding-top: 16px; background: #0052CC; border-radius: 8px; padding: 16px; text-align: center; }
-  .s6 .cta h3 { font-family: 'Syne', sans-serif; font-size: clamp(14px,2.8vw,18px); font-weight: 800; color: #fff; margin-bottom: 4px; }
-  .s6 .cta p { font-size: clamp(11px,2vw,13px); color: #CCE0FF; }
-  .s6 .pg { padding-top: 12px; font-size: clamp(10px,1.6vw,12px); color: #999; }
+/* Item rows */
+.irow{display:flex;gap:clamp(7px,1.5vw,11px);align-items:flex-start;margin-bottom:clamp(5px,1.3vw,9px);}
+.irow:last-child{margin-bottom:0;}
+.inum{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(12px,2.8vw,17px);
+  font-weight:800;flex-shrink:0;
+  width:clamp(18px,3.5vw,26px);
+}
+.itxt h4{font-size:clamp(10px,2.3vw,13px);font-weight:600;margin-bottom:2px;}
+.itxt p{font-size:clamp(9px,1.9vw,12px);line-height:1.4;opacity:.8;}
+.on-blue .inum{color:rgba(255,255,255,.45);}
+.on-blue .itxt h4{color:#fff;}
+.on-blue .itxt p{color:#CCE0FF;}
+.on-white .inum{color:#0052CC;}
+.on-white .itxt h4{color:#002A80;}
+.on-white .itxt p{color:#555;}
 
-  /* CONTROLS */
-  .controls {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .controls button {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 10px 24px;
-    border-radius: 6px;
-    cursor: pointer;
-    border: 1.5px solid #0052CC;
-    transition: background 0.2s, color 0.2s;
-  }
-  #btn-prev { background: #fff; color: #0052CC; }
-  #btn-prev:hover { background: #EBF2FF; }
-  #btn-next { background: #0052CC; color: #fff; }
-  #btn-next:hover { background: #003D99; }
-  #dots { display: flex; gap: 6px; }
-  .dot {
-    height: 8px;
-    border-radius: 4px;
-    background: #B3C8F0;
-    cursor: pointer;
-    transition: all 0.3s;
-    width: 8px;
-  }
-  .dot.active { width: 22px; background: #0052CC; }
+/* White semi-transparent card (blue slides) */
+.wcard{
+  background:rgba(255,255,255,.1);
+  border-radius:7px;
+  padding:clamp(8px,1.8vw,12px) clamp(10px,2.2vw,14px);
+  margin-bottom:clamp(5px,1.2vw,8px);
+  display:flex;gap:clamp(8px,1.5vw,11px);align-items:flex-start;
+}
+.wcard:last-child{margin-bottom:0;}
 
-  .hint { font-size: 12px; color: #777; text-align: center; }
+/* Accent left-border card (white slides) */
+.acard{
+  border-left:3px solid #0052CC;
+  background:#EBF2FF;
+  border-radius:0 6px 6px 0;
+  padding:clamp(7px,1.6vw,10px) clamp(10px,2.2vw,14px);
+  margin-bottom:clamp(5px,1.1vw,8px);
+}
+.acard:last-child{margin-bottom:0;}
+.acard h4{font-size:clamp(10px,2.2vw,13px);font-weight:600;color:#002A80;margin-bottom:2px;}
+.acard p{font-size:clamp(9px,1.8vw,11px);color:#444;line-height:1.4;}
 
-  /* PRINT / SCREENSHOT helpers */
-  @media print {
-    #viewer { page-break-after: always; }
-    .controls, .hint, h1.page-title, .subtitle { display: none; }
-  }
+/* CTA block */
+.cta{
+  background:#0052CC;border-radius:8px;
+  padding:clamp(10px,2.2vw,14px);
+  text-align:center;margin-top:clamp(6px,1.4vw,10px);
+}
+.cta h3{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(12px,2.8vw,17px);
+  font-weight:800;color:#fff;margin-bottom:3px;
+}
+.cta p{font-size:clamp(9px,1.9vw,12px);color:#CCE0FF;}
+
+/* Page number */
+.pgn{
+  position:absolute;bottom:5%;right:7%;
+  font-size:clamp(9px,1.8vw,11px);
+  font-weight:500;
+}
+.on-blue .pgn{color:#80AAFF;}
+.on-white .pgn{color:#aaa;}
+
+/* ── CONTROLS ── */
+.controls{display:flex;align-items:center;gap:14px;}
+.cbtn{
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;
+  padding:9px 22px;border-radius:6px;cursor:pointer;
+  transition:background .2s,color .2s;
+}
+#bp{background:#fff;color:#0052CC;border:1.5px solid #0052CC;}
+#bp:hover{background:#EBF2FF;}
+#bn{background:#0052CC;color:#fff;border:1.5px solid #0052CC;}
+#bn:hover{background:#003D99;}
+#dots{display:flex;gap:6px;align-items:center;}
+.dot{
+  height:8px;width:8px;border-radius:4px;
+  background:#B3C8F0;cursor:pointer;
+  transition:all .3s;
+}
+.dot.on{width:22px;background:#0052CC;}
+
+.hint{font-size:11px;color:#777;text-align:center;max-width:420px;line-height:1.6;}
 </style>
 </head>
 <body>
 
 <div>
-  <h1 class="page-title">Tutorial Hell — 6 Slide Instagram</h1>
-  <p class="subtitle">1080×1080 · Dominan Biru Putih · Flat Design</p>
+  <p class="pg-title">Tutorial Hell — Carousel IG</p>
+  <p class="pg-sub">6 Slide · 1:1 · Blue & White · Gen-Z</p>
 </div>
 
 <div id="viewer">
 
-  <!-- SLIDE 1 -->
-  <div class="slide s1 active">
-    <span class="eyebrow">Belajar Coding</span>
-    <h2>TUTORIAL<br>HELL</h2>
-    <div class="divider"></div>
-    <p>Kamu terus nonton tutorial,<br>tapi nggak pernah build sendiri?</p>
-    <span class="swipe">Swipe untuk tahu lebih →</span>
+<!-- ═══════════════ SLIDE 1 · COVER ═══════════════ -->
+<div class="slide bg-blue on-blue active">
+  <div class="sh" style="padding-bottom:0;">
+    <span class="eyebrow">belajar coding 2024</span>
+    <div style="font-family:'Syne',sans-serif;font-size:clamp(44px,12vw,82px);font-weight:800;color:#fff;line-height:.88;margin-bottom:clamp(10px,2.5vw,18px);">TUTORIAL<br>HELL</div>
+    <div style="width:40px;height:3px;background:#fff;margin-bottom:clamp(8px,2vw,14px);"></div>
+    <p style="font-size:clamp(13px,3vw,18px);color:#CCE0FF;line-height:1.5;max-width:78%;">bestie, kamu masih stuck<br>nonton tutorial doang?</p>
   </div>
-
-  <!-- SLIDE 2 -->
-  <div class="slide s2">
-    <span class="eyebrow">Definisi</span>
-    <h2>Apa Itu<br>Tutorial Hell?</h2>
-    <div class="callout">
-      <p>Kondisi di mana kamu terus-menerus menonton tutorial tanpa pernah membuat sesuatu sendiri.</p>
-    </div>
-    <p class="body">Nonton tutorial bikin kamu <strong>merasa paham</strong>, tapi begitu harus ngoding sendiri — <span class="danger">blank total.</span></p>
-    <div class="pg">2 / 6</div>
+  <div class="si" style="padding:0 8%;">
+    <!-- Laptop + floating video cards vortex -->
+    <svg viewBox="0 0 300 155" xmlns="http://www.w3.org/2000/svg">
+      <!-- Center laptop -->
+      <rect x="98" y="48" width="104" height="70" rx="6" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
+      <rect x="102" y="52" width="96" height="58" rx="3" fill="rgba(255,255,255,.07)"/>
+      <!-- Infinity / loop on screen -->
+      <path d="M127 81 C127 74 133 69 140 69 C145 69 148 71 150 75 L133 75 C131 75 129 77 129 79 C129 81 131 83 133 83 L150 83 C152 80 155 78 160 78 C168 78 174 85 174 92 C174 99 168 106 160 106 C155 106 152 104 150 101 L166 101 C168 101 170 99 170 97 C170 95 168 93 166 93 L150 93 C148 96 145 98 140 98 C133 98 127 93 127 81Z" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Laptop base -->
+      <rect x="80" y="118" width="140" height="7" rx="3.5" fill="rgba(255,255,255,.22)"/>
+      <rect x="124" y="118" width="52" height="6" rx="2" fill="rgba(255,255,255,.38)"/>
+      <!-- Video card TL -->
+      <rect x="8" y="14" width="68" height="46" rx="4" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.3)" stroke-width="1.3"/>
+      <rect x="13" y="19" width="58" height="28" rx="2" fill="rgba(255,255,255,.1)"/>
+      <polygon points="36,27 49,33 36,39" fill="rgba(255,255,255,.75)"/>
+      <rect x="13" y="50" width="38" height="3" rx="1.5" fill="rgba(255,255,255,.3)"/>
+      <rect x="13" y="55" width="26" height="2" rx="1" fill="rgba(255,255,255,.18)"/>
+      <line x1="76" y1="38" x2="100" y2="68" stroke="rgba(255,255,255,.2)" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <!-- Video card TR -->
+      <rect x="224" y="8" width="68" height="46" rx="4" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.3)" stroke-width="1.3"/>
+      <rect x="229" y="13" width="58" height="28" rx="2" fill="rgba(255,255,255,.1)"/>
+      <polygon points="250,21 263,27 250,33" fill="rgba(255,255,255,.75)"/>
+      <rect x="229" y="44" width="38" height="3" rx="1.5" fill="rgba(255,255,255,.3)"/>
+      <line x1="224" y1="32" x2="202" y2="62" stroke="rgba(255,255,255,.2)" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <!-- Video card BL -->
+      <rect x="4" y="100" width="68" height="46" rx="4" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.3)" stroke-width="1.3"/>
+      <rect x="9" y="105" width="58" height="28" rx="2" fill="rgba(255,255,255,.1)"/>
+      <polygon points="30,113 43,119 30,125" fill="rgba(255,255,255,.75)"/>
+      <line x1="72" y1="120" x2="100" y2="115" stroke="rgba(255,255,255,.2)" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <!-- Video card BR -->
+      <rect x="228" y="100" width="68" height="46" rx="4" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.3)" stroke-width="1.3"/>
+      <rect x="233" y="105" width="58" height="28" rx="2" fill="rgba(255,255,255,.1)"/>
+      <polygon points="254,113 267,119 254,125" fill="rgba(255,255,255,.75)"/>
+      <line x1="228" y1="120" x2="200" y2="115" stroke="rgba(255,255,255,.2)" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <!-- "+N more" badge -->
+      <circle cx="198" cy="50" r="10" fill="rgba(255,255,255,.13)" stroke="rgba(255,255,255,.35)" stroke-width="1"/>
+      <text x="198" y="55" text-anchor="middle" fill="white" font-size="11" font-family="sans-serif" opacity=".8">+</text>
+    </svg>
   </div>
-
-  <!-- SLIDE 3 -->
-  <div class="slide s3">
-    <span class="eyebrow">Tanda-tanda</span>
-    <h2>Kamu Sedang<br>Terjebak Jika...</h2>
-    <div class="items">
-      <div class="item">
-        <span class="num">01</span>
-        <p>Sudah nonton 10+ tutorial, belum punya 1 project yang selesai</p>
-      </div>
-      <div class="item">
-        <span class="num">02</span>
-        <p>Merasa harus "mengerti semua dulu" sebelum mulai coding</p>
-      </div>
-      <div class="item">
-        <span class="num">03</span>
-        <p>Selesai 1 tutorial, langsung cari tutorial baru lagi</p>
-      </div>
-    </div>
-    <div class="pg">3 / 6</div>
+  <div style="padding:0 8% 7%;">
+    <span style="font-size:clamp(10px,2vw,13px);color:#80AAFF;">swipe → no cap ini penting 👇</span>
   </div>
-
-  <!-- SLIDE 4 -->
-  <div class="slide s4">
-    <span class="eyebrow">Penyebab</span>
-    <h2>Kenapa Ini<br>Terjadi?</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Zona Nyaman</h3>
-        <p>Ngikutin tutorial = nggak ada risiko salah. Enak, tapi nggak maju.</p>
-      </div>
-      <div class="card">
-        <h3>Ilusi Belajar</h3>
-        <p>Nonton ≠ ngerti. Otak hanya passive consuming, bukan aktif berpikir.</p>
-      </div>
-      <div class="card">
-        <h3>Takut Error</h3>
-        <p>Takut salah bikin kamu menghindari challenge nyata yang paling mendidik.</p>
-      </div>
-    </div>
-    <div class="pg">4 / 6</div>
-  </div>
-
-  <!-- SLIDE 5 -->
-  <div class="slide s5">
-    <span class="eyebrow">Solusi · 1 dari 2</span>
-    <h2>Cara Keluar<br>Tutorial Hell</h2>
-    <div class="items">
-      <div class="item">
-        <span class="num">1</span>
-        <div>
-          <h3>Stop nonton, mulai build</h3>
-          <p>Buat apapun — todo list, kalkulator. Yang penting jalan tanpa panduan.</p>
-        </div>
-      </div>
-      <div class="item">
-        <span class="num">2</span>
-        <div>
-          <h3>Buat project dari ide sendiri</h3>
-          <p>Passion project > clone tutorial. Motivasimu akan jauh lebih kuat.</p>
-        </div>
-      </div>
-      <div class="item">
-        <span class="num">3</span>
-        <div>
-          <h3>Google sendiri dulu sebelum nonton</h3>
-          <p>Debugging mandiri adalah cara belajar yang sesungguhnya.</p>
-        </div>
-      </div>
-    </div>
-    <div class="pg">5 / 6</div>
-  </div>
-
-  <!-- SLIDE 6 -->
-  <div class="slide s6">
-    <span class="eyebrow">Solusi · 2 dari 2</span>
-    <h2>Lanjutkan<br>Perjalananmu</h2>
-    <div class="items">
-      <div class="item">
-        <h3>4 · Ikut coding challenge</h3>
-        <p>LeetCode, HackerRank, Frontend Mentor — selesaikan 1 soal per hari.</p>
-      </div>
-      <div class="item">
-        <h3>5 · Batasi waktu nonton tutorial</h3>
-        <p>Max 30 menit nonton, 1 jam langsung praktek. Terapkan rasio ini konsisten.</p>
-      </div>
-      <div class="item">
-        <h3>6 · Punya goal project yang jelas</h3>
-        <p>Tulis: "Bulan ini aku selesaikan 1 web app." Komit dan laksanakan.</p>
-      </div>
-    </div>
-    <div class="cta" style="margin-top:16px;background:#0052CC;border-radius:8px;padding:16px;text-align:center;">
-      <h3 style="font-family:'Syne',sans-serif;font-size:clamp(14px,2.8vw,18px);font-weight:800;color:#fff;margin-bottom:4px;">Mulai sekarang. Bukan besok.</h3>
-      <p style="font-size:clamp(11px,2vw,13px);color:#CCE0FF;">Error itu bagian dari proses. Embrace it.</p>
-    </div>
-    <div class="pg">6 / 6</div>
-  </div>
-
+  <span class="pgn">1 / 6</span>
 </div>
+
+<!-- ═══════════════ SLIDE 2 · WHAT IS IT ═══════════════ -->
+<div class="slide bg-white on-white">
+  <div class="sh">
+    <span class="eyebrow">fr fr ini tuh...</span>
+    <h2 class="slide-title">Tutorial Hell<br>Tuh Apa Sih?</h2>
+  </div>
+  <div class="si" style="padding:0 7%;flex:0 0 38%;">
+    <!-- Watching vs Blank split visual -->
+    <svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+      <!-- LEFT: watching panel -->
+      <rect x="5" y="5" width="128" height="110" rx="9" fill="#EBF2FF"/>
+      <!-- Screen -->
+      <rect x="20" y="16" width="98" height="60" rx="5" fill="#0052CC" opacity=".9"/>
+      <!-- Play button -->
+      <polygon points="54,38 72,46 54,54" fill="white"/>
+      <!-- Progress bar -->
+      <rect x="20" y="80" width="98" height="5" rx="2.5" fill="#CCE0FF"/>
+      <rect x="20" y="80" width="65" height="5" rx="2.5" fill="#0052CC"/>
+      <!-- Eyes watching (happy) -->
+      <circle cx="52" cy="101" r="6" fill="#0052CC" opacity=".65"/>
+      <circle cx="96" cy="101" r="6" fill="#0052CC" opacity=".65"/>
+      <circle cx="53" cy="100" r="2.5" fill="#002A80"/>
+      <circle cx="97" cy="100" r="2.5" fill="#002A80"/>
+      <!-- Smile -->
+      <path d="M60 110 Q74 116 88 110" stroke="#0052CC" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".6"/>
+      <text x="69" y="118" text-anchor="middle" fill="#0052CC" font-family="'DM Sans',sans-serif" font-size="9" font-weight="600">Nonton Tutorial</text>
+
+      <!-- CENTER arrow + ≠ -->
+      <text x="150" y="58" text-anchor="middle" fill="#CC2200" font-size="20" font-family="sans-serif" opacity=".75" font-weight="bold">≠</text>
+      <line x1="136" y1="60" x2="143" y2="60" stroke="#CC2200" stroke-width="1.2" opacity=".4"/>
+      <line x1="158" y1="60" x2="165" y2="60" stroke="#CC2200" stroke-width="1.2" opacity=".4"/>
+
+      <!-- RIGHT: blank / confused panel -->
+      <rect x="172" y="5" width="123" height="110" rx="9" fill="#FFF0F0"/>
+      <!-- Head silhouette -->
+      <circle cx="234" cy="52" r="32" fill="none" stroke="#FFAAAA" stroke-width="2"/>
+      <!-- Big ? -->
+      <text x="234" y="64" text-anchor="middle" fill="#CC2200" font-size="36" font-family="sans-serif" opacity=".5">?</text>
+      <!-- sweat drops -->
+      <ellipse cx="266" cy="32" rx="3" ry="5" fill="#FFCCCC" opacity=".7" transform="rotate(-15 266 32)"/>
+      <ellipse cx="272" cy="22" rx="2" ry="4" fill="#FFCCCC" opacity=".5" transform="rotate(-10 272 22)"/>
+      <text x="234" y="106" text-anchor="middle" fill="#CC2200" font-family="'DM Sans',sans-serif" font-size="9" font-weight="600">Coding Sendiri 💀</text>
+    </svg>
+  </div>
+  <div class="sc" style="padding-top:1%;">
+    <div class="acard" style="margin-bottom:0;">
+      <h4>Nonton tutorial = ngerasa paham. Bikin sendiri = blank total.</h4>
+      <p>Itu bukan belajar, bestie. That's called <em>passive consuming</em>. Ngl itu literally cuma ilusi produktif fr fr.</p>
+    </div>
+  </div>
+  <span class="pgn">2 / 6</span>
+</div>
+
+<!-- ═══════════════ SLIDE 3 · SIGNS ═══════════════ -->
+<div class="slide bg-blue on-blue">
+  <div class="sh">
+    <span class="eyebrow">check yourself bestie 🚩</span>
+    <h2 class="slide-title">Red Flags<br>Kamu Terjebak</h2>
+  </div>
+  <div class="si" style="flex:0 0 28%;padding:0 9%;">
+    <!-- Three red flags in a row -->
+    <svg viewBox="0 0 300 78" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <!-- Flag 1 -->
+      <line x1="48" y1="6" x2="48" y2="74" stroke="rgba(255,255,255,.45)" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M48 6 L90 18 L48 30 Z" fill="rgba(255,100,100,.85)"/>
+      <text x="48" y="52" text-anchor="middle" fill="rgba(255,255,255,.8)" font-family="'DM Sans',sans-serif" font-size="9.5" font-weight="600">10+ tutorial</text>
+      <text x="48" y="64" text-anchor="middle" fill="rgba(255,255,255,.55)" font-family="'DM Sans',sans-serif" font-size="8.5">0 project</text>
+
+      <!-- Flag 2 -->
+      <line x1="150" y1="6" x2="150" y2="74" stroke="rgba(255,255,255,.45)" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M150 6 L192 18 L150 30 Z" fill="rgba(255,100,100,.85)"/>
+      <text x="150" y="52" text-anchor="middle" fill="rgba(255,255,255,.8)" font-family="'DM Sans',sans-serif" font-size="9.5" font-weight="600">nunggu siap</text>
+      <text x="150" y="64" text-anchor="middle" fill="rgba(255,255,255,.55)" font-family="'DM Sans',sans-serif" font-size="8.5">dulu baru mulai</text>
+
+      <!-- Flag 3 -->
+      <line x1="252" y1="6" x2="252" y2="74" stroke="rgba(255,255,255,.45)" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M252 6 L294 18 L252 30 Z" fill="rgba(255,100,100,.85)"/>
+      <!-- loop icon -->
+      <path d="M237 52 C237 48 240 45 244 45 C247 45 249 47 250 49 L244 49 C243 49 242 50 242 51 C242 52 243 53 244 53 L250 53 C251 51 253 50 256 50 C260 50 263 53 263 56 C263 59 260 62 256 62 C253 62 251 61 250 59 L256 59 C257 59 258 58 258 57 C258 56 257 55 256 55 L250 55 C248 57 246 58 244 58 C240 58 237 55 237 52Z" fill="rgba(255,255,255,.7)"/>
+      <text x="252" y="70" text-anchor="middle" fill="rgba(255,255,255,.55)" font-family="'DM Sans',sans-serif" font-size="8.5">loop tutorial</text>
+    </svg>
+  </div>
+  <div class="sc">
+    <div class="irow">
+      <span class="inum">01</span>
+      <div class="itxt"><h4>Udah nonton 10+ tapi project masih 0</h4><p>Ngl that's a major yikes. No cap.</p></div>
+    </div>
+    <div class="irow">
+      <span class="inum">02</span>
+      <div class="itxt"><h4>Nunggu "ngerti 100% dulu" baru mulai</h4><p>Bestie, that's not how coding works fr fr.</p></div>
+    </div>
+    <div class="irow">
+      <span class="inum">03</span>
+      <div class="itxt"><h4>Selesai 1 tutorial → langsung cari lagi</h4><p>It's giving procrastination loop. 💀</p></div>
+    </div>
+  </div>
+  <span class="pgn">3 / 6</span>
+</div>
+
+<!-- ═══════════════ SLIDE 4 · WHY ═══════════════ -->
+<div class="slide bg-white on-white">
+  <div class="sh">
+    <span class="eyebrow">plot twist 😬</span>
+    <h2 class="slide-title">Kenapa Bisa<br>Kejadian?</h2>
+  </div>
+  <div class="si" style="flex:0 0 40%;padding:0 5%;">
+    <!-- Three cause icons in a row -->
+    <svg viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg">
+      <!-- Cause 1: Comfort bubble -->
+      <circle cx="48" cy="46" r="36" fill="#EBF2FF"/>
+      <circle cx="48" cy="46" r="28" fill="none" stroke="#0052CC" stroke-width="1.5" stroke-dasharray="4,3" opacity=".6"/>
+      <!-- person silhouette -->
+      <circle cx="48" cy="34" r="9" fill="#0052CC" opacity=".65"/>
+      <path d="M33 58 Q48 50 63 58" stroke="#0052CC" stroke-width="2.2" fill="none" opacity=".65" stroke-linecap="round"/>
+      <rect x="38" y="52" width="20" height="7" rx="3.5" fill="#80AAFF" opacity=".7"/>
+      <text x="48" y="92" text-anchor="middle" fill="#0052CC" font-size="9.5" font-family="'DM Sans',sans-serif" font-weight="600">Zona Nyaman</text>
+
+      <!-- Cause 2: Play ≠ Lightbulb -->
+      <circle cx="150" cy="46" r="36" fill="#EBF2FF"/>
+      <circle cx="136" cy="46" r="15" fill="none" stroke="#0052CC" stroke-width="1.5" opacity=".7"/>
+      <polygon points="132,40 144,46 132,52" fill="#0052CC" opacity=".7"/>
+      <text x="150" y="51" text-anchor="middle" fill="#CC2200" font-size="15" font-family="sans-serif" opacity=".8" font-weight="bold">≠</text>
+      <!-- bulb -->
+      <path d="M157 36 C157 30 161 26 166 26 C171 26 175 30 175 36 C175 41 172 44 170 46 L170 52 L162 52 L162 46 C160 44 157 41 157 36Z" fill="none" stroke="#0052CC" stroke-width="1.5" opacity=".7"/>
+      <rect x="162" y="52" width="8" height="4" rx="2" fill="#0052CC" opacity=".4"/>
+      <line x1="166" y1="22" x2="166" y2="19" stroke="#0052CC" stroke-width="1.5" opacity=".4" stroke-linecap="round"/>
+      <text x="150" y="92" text-anchor="middle" fill="#0052CC" font-size="9.5" font-family="'DM Sans',sans-serif" font-weight="600">Ilusi Belajar</text>
+
+      <!-- Cause 3: Error fear -->
+      <circle cx="252" cy="46" r="36" fill="#EBF2FF"/>
+      <rect x="230" y="28" width="44" height="32" rx="5" fill="#002A80" opacity=".12"/>
+      <rect x="230" y="28" width="44" height="10" rx="5" fill="#0052CC" opacity=".35"/>
+      <text x="252" y="38" text-anchor="middle" fill="white" font-size="7" font-family="monospace" opacity=".85">ERROR</text>
+      <text x="252" y="56" text-anchor="middle" fill="#CC2200" font-size="20" font-family="sans-serif" opacity=".75" font-weight="bold">!</text>
+      <text x="238" y="58" fill="#0052CC" font-size="7" font-family="monospace" opacity=".4">404</text>
+      <text x="252" y="92" text-anchor="middle" fill="#0052CC" font-size="9.5" font-family="'DM Sans',sans-serif" font-weight="600">Takut Error</text>
+    </svg>
+  </div>
+  <div class="sc" style="padding-top:1%;">
+    <div class="acard">
+      <h4>Zona Nyaman — tutorial itu zero risk of failure</h4>
+      <p>Lowkey comfortable, tapi literally nggak ada growth-nya.</p>
+    </div>
+    <div class="acard">
+      <h4>Ilusi Belajar — nonton ≠ bisa</h4>
+      <p>Otak kamu passive consuming, bukan actually berpikir.</p>
+    </div>
+    <div class="acard" style="margin-bottom:0;">
+      <h4>Takut Error — padahal error = guru terbaik</h4>
+      <p>Debugging sendiri itu literally cara tercepat naik level.</p>
+    </div>
+  </div>
+  <span class="pgn">4 / 6</span>
+</div>
+
+<!-- ═══════════════ SLIDE 5 · SOLUTIONS 1–3 ═══════════════ -->
+<div class="slide bg-blue on-blue">
+  <div class="sh">
+    <span class="eyebrow">no cap, ini solusinya 🚀</span>
+    <h2 class="slide-title">Cara Escape,<br>Fr Fr</h2>
+  </div>
+  <div class="si" style="flex:0 0 32%;padding:0 8%;">
+    <!-- Rocket from keyboard -->
+    <svg viewBox="0 0 300 85" xmlns="http://www.w3.org/2000/svg">
+      <!-- Keyboard -->
+      <rect x="28" y="54" width="244" height="28" rx="5" fill="rgba(255,255,255,.1)"/>
+      <rect x="36" y="61" width="18" height="14" rx="2" fill="rgba(255,255,255,.14)"/>
+      <rect x="58" y="61" width="18" height="14" rx="2" fill="rgba(255,255,255,.14)"/>
+      <rect x="80" y="61" width="18" height="14" rx="2" fill="rgba(255,255,255,.14)"/>
+      <rect x="102" y="61" width="18" height="14" rx="2" fill="rgba(255,255,255,.14)"/>
+      <rect x="124" y="61" width="52" height="14" rx="2" fill="rgba(255,255,255,.2)"/>
+      <rect x="180" y="61" width="18" height="14" rx="2" fill="rgba(255,255,255,.14)"/>
+      <rect x="202" y="61" width="18" height="14" rx="2" fill="rgba(255,255,255,.14)"/>
+      <rect x="224" y="61" width="18" height="14" rx="2" fill="rgba(255,255,255,.14)"/>
+      <rect x="246" y="61" width="18" height="14" rx="2" fill="rgba(255,255,255,.14)"/>
+      <!-- Rocket body -->
+      <path d="M143 52 L150 10 L157 52 Z" fill="white"/>
+      <!-- Nose -->
+      <path d="M146.5 14 L150 5 L153.5 14 Z" fill="#80AAFF"/>
+      <!-- Window -->
+      <circle cx="150" cy="34" r="7" fill="#EBF2FF" stroke="rgba(0,82,204,.5)" stroke-width="1.5"/>
+      <circle cx="150" cy="34" r="3.5" fill="#0052CC" opacity=".6"/>
+      <!-- Fins -->
+      <path d="M143 52 L133 60 L143 46 Z" fill="rgba(255,255,255,.55)"/>
+      <path d="M157 52 L167 60 L157 46 Z" fill="rgba(255,255,255,.55)"/>
+      <!-- Exhaust flame -->
+      <path d="M145.5 52 Q150 66 150 70 Q150 66 154.5 52" fill="rgba(255,190,60,.45)" stroke="rgba(255,190,60,.7)" stroke-width="1"/>
+      <!-- Stars -->
+      <circle cx="78" cy="18" r="2.2" fill="rgba(255,255,255,.6)"/>
+      <circle cx="104" cy="8" r="1.5" fill="rgba(255,255,255,.5)"/>
+      <circle cx="196" cy="12" r="2.2" fill="rgba(255,255,255,.6)"/>
+      <circle cx="222" cy="28" r="1.5" fill="rgba(255,255,255,.4)"/>
+      <circle cx="60" cy="38" r="1.5" fill="rgba(255,255,255,.4)"/>
+      <circle cx="240" cy="6" r="1.2" fill="rgba(255,255,255,.5)"/>
+    </svg>
+  </div>
+  <div class="sc">
+    <div class="wcard">
+      <span class="inum">1</span>
+      <div class="itxt"><h4>Stop nonton, langsung build sesuatu</h4><p>Todo list, kalkulator, apa aja. Just ship it, no tutorial needed.</p></div>
+    </div>
+    <div class="wcard">
+      <span class="inum">2</span>
+      <div class="itxt"><h4>Project dari ide sendiri > clone tutorial</h4><p>Passion project hits different. Motivasinya beda banget fr fr.</p></div>
+    </div>
+    <div class="wcard">
+      <span class="inum">3</span>
+      <div class="itxt"><h4>Google dulu, baru nonton kalau nyerah</h4><p>Debug mandiri = actual learning. You understood the assignment. 💪</p></div>
+    </div>
+  </div>
+  <span class="pgn">5 / 6</span>
+</div>
+
+<!-- ═══════════════ SLIDE 6 · SOLUTIONS 4–6 + CTA ═══════════════ -->
+<div class="slide bg-white on-white">
+  <div class="sh">
+    <span class="eyebrow">final boss unlocked 🔓</span>
+    <h2 class="slide-title">Level Up<br>Sekarang</h2>
+  </div>
+  <div class="si" style="flex:0 0 30%;padding:0 10%;">
+    <!-- Trophy with stars -->
+    <svg viewBox="0 0 300 88" xmlns="http://www.w3.org/2000/svg">
+      <!-- Trophy cup -->
+      <path d="M118 10 L182 10 L176 58 L166 64 L160 76 L140 76 L134 64 L124 58 Z" fill="#EBF2FF" stroke="#0052CC" stroke-width="2"/>
+      <path d="M126 10 L174 10 L170 52 L126 52 Z" fill="rgba(0,82,204,.06)"/>
+      <!-- Handles -->
+      <path d="M118 10 Q96 10 93 26 Q90 43 118 47" stroke="#0052CC" stroke-width="2" fill="none"/>
+      <path d="M182 10 Q204 10 207 26 Q210 43 182 47" stroke="#0052CC" stroke-width="2" fill="none"/>
+      <!-- Base -->
+      <rect x="130" y="76" width="40" height="6" rx="2" fill="#0052CC"/>
+      <rect x="122" y="82" width="56" height="5" rx="2" fill="#002A80"/>
+      <!-- Star in trophy -->
+      <polygon points="150,24 153,34 163,34 155,41 158,51 150,44 142,51 145,41 137,34 147,34" fill="#0052CC" opacity=".55"/>
+      <!-- Decorative stars -->
+      <polygon points="82,18 84,24 90,24 85,28 87,34 82,30 77,34 79,28 74,24 80,24" fill="#80AAFF" opacity=".65" transform="scale(.75) translate(27,6)"/>
+      <polygon points="218,12 220,18 226,18 221,22 223,28 218,24 213,28 215,22 210,18 216,18" fill="#80AAFF" opacity=".65" transform="scale(.65) translate(119,6)"/>
+      <!-- Confetti -->
+      <circle cx="68" cy="26" r="4" fill="#80AAFF" opacity=".45"/>
+      <circle cx="232" cy="20" r="4" fill="#80AAFF" opacity=".45"/>
+      <circle cx="55" cy="58" r="3" fill="#CCE0FF"/>
+      <circle cx="245" cy="54" r="3" fill="#CCE0FF"/>
+      <rect x="74" y="54" width="6" height="6" rx="1.5" fill="#0052CC" opacity=".18" transform="rotate(18 77 57)"/>
+      <rect x="220" y="48" width="6" height="6" rx="1.5" fill="#0052CC" opacity=".18" transform="rotate(-22 223 51)"/>
+    </svg>
+  </div>
+  <div class="sc" style="padding-top:1%;">
+    <div class="acard">
+      <h4>4 · Ikut coding challenge harian</h4>
+      <p>LeetCode, Frontend Mentor — 1 soal/hari. Consistent &gt; marathon, period.</p>
+    </div>
+    <div class="acard">
+      <h4>5 · Rasio 30 menit nonton : 1 jam coding</h4>
+      <p>Terapkan ini dan hidupmu literally beda. No cap sama sekali.</p>
+    </div>
+    <div class="acard">
+      <h4>6 · Set goal + deadline yang jelas</h4>
+      <p>"Bulan ini: 1 web app kelar." Tulis, komit, slay. 👑</p>
+    </div>
+    <div class="cta">
+      <h3>Mulai sekarang. Bestie, you got this.</h3>
+      <p>Error itu bagian dari journey. Embrace it fr fr. 🚀</p>
+    </div>
+  </div>
+  <span class="pgn">6 / 6</span>
+</div>
+
+</div><!-- end #viewer -->
 
 <!-- CONTROLS -->
 <div class="controls">
-  <button id="btn-prev" onclick="go(-1)">← Prev</button>
+  <button class="cbtn" id="bp" onclick="go(-1)">← Prev</button>
   <div id="dots"></div>
-  <button id="btn-next" onclick="go(1)">Next →</button>
+  <button class="cbtn" id="bn" onclick="go(1)">Next →</button>
 </div>
 
-<p class="hint">Gunakan browser screenshot (F12 → screenshot node) atau ekstensi "GoFullPage" untuk capture tiap slide · Ukuran ideal: 1080×1080px</p>
+<p class="hint">
+  📸 <strong>Export tiap slide:</strong> Buka di Chrome → klik kanan elemen <code>#viewer</code> di DevTools → <em>Capture node screenshot</em><br>
+  Atau pakai ekstensi <strong>GoFullPage</strong> / screenshot tiap slide manual · Ideal size: 1080×1080px
+</p>
 
 <script>
-const slides = document.querySelectorAll('.slide');
-const dotsEl = document.getElementById('dots');
-let cur = 0;
+const slides=[...document.querySelectorAll('.slide')];
+const dotsEl=document.getElementById('dots');
+let cur=0,busy=false;
 
-slides.forEach((_, i) => {
-  const dot = document.createElement('div');
-  dot.className = 'dot' + (i === 0 ? ' active' : '');
-  dot.onclick = () => showSlide(i);
-  dotsEl.appendChild(dot);
+slides.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' on':'');
+  d.onclick=()=>showSlide(i);
+  dotsEl.appendChild(d);
 });
 
-function showSlide(n) {
-  const prev = cur;
-  cur = Math.max(0, Math.min(slides.length - 1, n));
-  if (cur === prev) return;
-
-  slides[prev].classList.remove('active');
-  slides[prev].style.transform = cur > prev ? 'translateX(-60px)' : 'translateX(60px)';
-
-  slides[cur].style.transition = 'none';
-  slides[cur].style.transform = cur > prev ? 'translateX(60px)' : 'translateX(-60px)';
-  slides[cur].style.opacity = '0';
-
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      slides[cur].style.transition = '';
-      slides[cur].classList.add('active');
-    });
-  });
-
-  dotsEl.querySelectorAll('.dot').forEach((d, i) => {
-    d.classList.toggle('active', i === cur);
-  });
+function showSlide(n){
+  n=Math.max(0,Math.min(slides.length-1,n));
+  if(n===cur||busy)return;
+  busy=true;
+  slides[cur].classList.remove('active');
+  cur=n;
+  slides[cur].classList.add('active');
+  dotsEl.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===cur));
+  setTimeout(()=>busy=false,380);
 }
 
-function go(dir) { showSlide(cur + dir); }
+function go(d){showSlide(cur+d);}
 
-let sx = null;
-const viewer = document.getElementById('viewer');
-viewer.addEventListener('touchstart', e => { sx = e.touches[0].clientX; });
-viewer.addEventListener('touchend', e => {
-  if (sx !== null) {
-    const dx = e.changedTouches[0].clientX - sx;
-    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
-    sx = null;
-  }
+// Touch swipe
+let sx=null;
+const v=document.getElementById('viewer');
+v.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+v.addEventListener('touchend',e=>{
+  if(sx!==null){const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)go(dx<0?1:-1);sx=null;}
 });
+
+// Keyboard
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1);});
 </script>
 </body>
 </html>
